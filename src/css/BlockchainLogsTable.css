@@ -1,0 +1,137 @@
+/* BlockchainLogsTable Styles */
+.blockchain-table-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e5e5;
+  overflow: hidden;
+}
+
+.blockchain-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.blockchain-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+/* Header */
+.blockchain-table thead tr {
+  background-color: #588157;
+}
+
+.blockchain-table thead th {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Body */
+.blockchain-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.15s ease;
+}
+
+.blockchain-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.blockchain-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.blockchain-table tbody td {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.85rem;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Cell Helpers */
+.cell-tx-id {
+  font-weight: 600;
+  color: #1a202c;
+  white-space: nowrap;
+}
+
+.cell-block-id {
+  font-weight: 500;
+  color: #555;
+  white-space: nowrap;
+}
+
+.cell-timestamp {
+  white-space: nowrap;
+  color: #555;
+}
+
+/* Hash Cell */
+.hash-cell {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  color: #666;
+  background-color: #f7f8fa;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+/* Status Badge */
+.blockchain-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.blockchain-badge.badge-committed {
+  background-color: #e6ffed;
+  color: #22543d;
+}
+
+.blockchain-badge.badge-pending {
+  background-color: #fff8e6;
+  color: #b7791f;
+}
+
+/* Empty State */
+.blockchain-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+/* View More Button */
+.view-more-btn {
+  padding: 0.45rem 1rem;
+  background-color: #588157;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.view-more-btn:hover {
+  background-color: #9db49e;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.view-more-btn:active {
+  transform: translateY(1px);
+}

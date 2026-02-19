@@ -1,0 +1,105 @@
+/* VerificationLogsTable Styles */
+.verification-table-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e5e5;
+  overflow: hidden;
+}
+
+.verification-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.verification-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+/* Header */
+.verification-table thead tr {
+  background-color: #588157;
+}
+
+.verification-table thead th {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* Body */
+.verification-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.15s ease;
+}
+
+.verification-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.verification-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.verification-table tbody td {
+  padding: 0.85rem 1.1rem;
+  font-size: 0.85rem;
+  color: #333;
+  vertical-align: middle;
+}
+
+/* Cell Helpers */
+.cell-verifier {
+  font-weight: 500;
+  color: #1a202c;
+}
+
+.cell-email {
+  color: #555;
+}
+
+.cell-cert-id {
+  font-weight: 600;
+  color: #1a202c;
+  white-space: nowrap;
+}
+
+.cell-date {
+  white-space: nowrap;
+  color: #555;
+}
+
+/* Status Badge */
+.verification-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.verification-badge.badge-valid {
+  background-color: #e6ffed;
+  color: #22543d;
+}
+
+.verification-badge.badge-invalid {
+  background-color: #fff5f5;
+  color: #c53030;
+}
+
+/* Empty State */
+.verification-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #888;
+  font-size: 0.95rem;
+}

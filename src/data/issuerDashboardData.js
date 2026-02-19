@@ -1,0 +1,65 @@
+export const issuerStats = {
+  totalCertificatesIssued: 148,
+  totalValidCertificates: 132,
+  totalRevokedCertificates: 16,
+  totalVerifications: 312,
+};
+
+export const recentCertificates = [
+  {
+    id: 1,
+    certificateId: 'CERT-1001',
+    studentName: 'Aarav Sharma',
+    courseName: 'B.Tech in Computer Science',
+    issuedAt: '2025-09-15',
+    status: 'Valid',
+  },
+  {
+    id: 2,
+    certificateId: 'CERT-1002',
+    studentName: 'Priya Patel',
+    courseName: 'M.Tech in Data Science',
+    issuedAt: '2025-10-02',
+    status: 'Valid',
+  },
+  {
+    id: 3,
+    certificateId: 'CERT-1003',
+    studentName: 'Rohit Verma',
+    courseName: 'B.Tech in Electrical Engineering',
+    issuedAt: '2025-11-20',
+    status: 'Revoked',
+  },
+  {
+    id: 4,
+    certificateId: 'CERT-1004',
+    studentName: 'Sneha Gupta',
+    courseName: 'B.Tech in Mechanical Engineering',
+    issuedAt: '2025-12-05',
+    status: 'Valid',
+  },
+  {
+    id: 5,
+    certificateId: 'CERT-1005',
+    studentName: 'Vikram Singh',
+    courseName: 'B.Tech in Civil Engineering',
+    issuedAt: '2026-01-10',
+    status: 'Valid',
+  },
+  {
+    id: 6,
+    certificateId: 'CERT-1006',
+    studentName: 'Ananya Reddy',
+    courseName: 'M.Tech in Software Engineering',
+    issuedAt: '2026-02-01',
+    status: 'Revoked',
+  },
+  {
+    id: 7,
+    certificateId: 'CERT-1007',
+    studentName: 'Karan Mehta',
+    courseName: 'B.Tech in Information Technology',
+    issuedAt: '2026-02-10',
+    status: 'Valid',
+  },
+];

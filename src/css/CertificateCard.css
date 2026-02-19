@@ -1,0 +1,54 @@
+/* Certificate Card Styles */
+.certificate-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.certificate-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.certificate-card-header {
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.certificate-title {
+  color: #2c3e50;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.certificate-card-body {
+  margin-bottom: 1rem;
+}
+
+.certificate-detail {
+  color: #7f8c8d;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.certificate-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.certificate-button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.certificate-button:hover {
+  background-color: #2980b9;
+}

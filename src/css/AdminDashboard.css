@@ -1,0 +1,120 @@
+/* Admin Dashboard Styles */
+.admin-dashboard {
+  width: 100%;
+}
+
+.admin-dashboard-heading {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 1.5rem 0;
+}
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-stat-card {
+  background-color: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8ecef;
+}
+
+.admin-stat-label {
+  color: #718096;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.5rem 0;
+}
+
+.admin-stat-value {
+  color: #1a202c;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.admin-activity-section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e8ecef;
+  padding: 1.5rem;
+}
+
+.admin-activity-heading {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0 0 1.25rem 0;
+}
+
+.admin-activity-table-wrapper {
+  overflow-x: auto;
+}
+
+.admin-activity-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-activity-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #718096;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid #e8ecef;
+}
+
+.admin-activity-table td {
+  padding: 0.85rem 1rem;
+  font-size: 0.875rem;
+  color: #2d3748;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.admin-activity-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.admin-activity-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.admin-role-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background-color: #f0f4f1;
+  color: #4a5568;
+}
+
+.admin-status-tag {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.admin-status-tag.completed {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.admin-status-tag.pending {
+  background-color: #fff8e1;
+  color: #c77c00;
+}

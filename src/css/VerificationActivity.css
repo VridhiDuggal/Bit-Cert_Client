@@ -1,0 +1,20 @@
+.va-page {
+  width: 100%;
+}
+
+.va-header {
+  margin-bottom: 1.5rem;
+}
+
+.va-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 0.35rem 0;
+}
+
+.va-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+}

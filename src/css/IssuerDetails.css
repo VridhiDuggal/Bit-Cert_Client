@@ -1,0 +1,133 @@
+/* IssuerDetails Styles */
+.issuer-details {
+  width: 100%;
+}
+
+.issuer-not-found {
+  text-align: center;
+  padding: 3rem;
+}
+
+.issuer-not-found h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.issuer-not-found p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* Back Button */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.back-btn:hover {
+  background-color: #e8e8e8;
+}
+
+/* Details Card */
+.issuer-details-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e5e5;
+  padding: 2rem;
+}
+
+.issuer-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.issuer-details-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 0.5rem 0;
+}
+
+.issuer-details-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.issuer-details-badge.badge-active {
+  background-color: #e6ffed;
+  color: #22543d;
+}
+
+.issuer-details-badge.badge-suspended {
+  background-color: #fff5f5;
+  color: #c53030;
+}
+
+/* Details Grid */
+.issuer-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.detail-item-full {
+  grid-column: 1 / -1;
+}
+
+.detail-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+.detail-value-highlight {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #588157;
+}
+
+.detail-value-mono {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.82rem;
+  color: #555;
+  background-color: #f7f8fa;
+  padding: 0.6rem 0.85rem;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  word-break: break-all;
+  line-height: 1.5;
+}

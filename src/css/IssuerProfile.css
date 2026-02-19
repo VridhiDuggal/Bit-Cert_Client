@@ -1,0 +1,149 @@
+.ip-page {
+  width: 100%;
+}
+
+.ip-header {
+  margin-bottom: 1.5rem;
+}
+
+.ip-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 0.35rem 0;
+}
+
+.ip-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+}
+
+.ip-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card */
+.ip-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 24px 28px;
+}
+
+.ip-section-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #588157;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 18px 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Two-column grid */
+.ip-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 24px;
+}
+
+.ip-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ip-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ip-value {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.ip-accent {
+  color: #588157;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Status badge */
+.ip-status-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 3px 14px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.ip-status-active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Identity section */
+.ip-identity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.ip-identity-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ip-identity-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.ip-mono {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.8rem;
+  color: #4a5568;
+  word-break: break-all;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.ip-copy-btn {
+  flex-shrink: 0;
+  padding: 5px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #588157;
+  background: #ffffff;
+  border: 1.5px solid #588157;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.ip-copy-btn:hover {
+  background: #588157;
+  color: #ffffff;
+}
+
+@media (max-width: 700px) {
+  .ip-grid {
+    grid-template-columns: 1fr;
+  }
+}

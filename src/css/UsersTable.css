@@ -1,0 +1,114 @@
+/* UsersTable Styles */
+.users-table-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e0e0e0;
+  padding: 1.5rem;
+}
+
+.users-table-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1.25rem 0;
+}
+
+.users-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 750px;
+}
+
+.users-table thead tr {
+  background-color: #588157;
+}
+
+.users-table th {
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.users-table td {
+  padding: 0.8rem 1rem;
+  font-size: 0.875rem;
+  color: #333;
+  border-bottom: 1px solid #f0f2f5;
+}
+
+.users-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.users-table-empty {
+  text-align: center;
+  color: #999;
+  padding: 2rem 1rem;
+  font-style: italic;
+}
+
+/* Role Tags */
+.users-role-tag {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.users-role-tag.role-admin {
+  background-color: #e8e0f0;
+  color: #6b46a1;
+}
+
+.users-role-tag.role-issuer {
+  background-color: #ddeef8;
+  color: #2b6cb0;
+}
+
+.users-role-tag.role-student {
+  background-color: #e6f4ea;
+  color: #276749;
+}
+
+.users-role-tag.role-verifier {
+  background-color: #fef3d7;
+  color: #975a16;
+}
+
+/* Status Badges */
+.users-status-badge {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.users-status-badge.active {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.users-status-badge.suspended {
+  background-color: #fde8e8;
+  color: #c53030;
+}

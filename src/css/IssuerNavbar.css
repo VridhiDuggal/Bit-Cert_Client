@@ -1,0 +1,82 @@
+/* Issuer Navbar Styles */
+.issuer-navbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8ecef;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.issuer-navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.issuer-navbar-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.issuer-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.issuer-org-name {
+  font-size: 0.82rem;
+  color: #5f6b7a;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.issuer-role-badge {
+  background-color: #588157;
+  color: #ffffff;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.issuer-profile-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #588157;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.issuer-profile-circle:hover {
+  background-color: #476846;
+}
+
+@media (max-width: 768px) {
+  .issuer-org-name {
+    display: none;
+  }
+
+  .issuer-navbar {
+    padding: 0 1rem;
+  }
+}
