@@ -146,4 +146,12 @@
   .ip-grid {
     grid-template-columns: 1fr;
   }
+
+  .ip-title {
+    font-size: 1.35rem;
+  }
+
+  .ip-card {
+    padding: 18px 16px;
+  }
 }

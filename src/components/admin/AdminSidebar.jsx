@@ -51,7 +51,7 @@ const iconMap = {
   ),
 };
 
-const AdminSidebar = () => {
+const AdminSidebar = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -61,7 +61,7 @@ const AdminSidebar = () => {
   };
 
   return (
-    <aside className="admin-sidebar">
+    <aside className={`admin-sidebar${isOpen ? ' open' : ''}`}>
       <div className="admin-sidebar-brand">
         <span className="brand-logo">
           <svg width="34" height="37" viewBox="0 0 40 44" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,6 +92,7 @@ const AdminSidebar = () => {
             className={({ isActive }) =>
               `admin-sidebar-link ${isActive ? 'active' : ''}`
             }
+            onClick={onClose}
           >
             <span className="sidebar-link-icon">{iconMap[link.icon]}</span>
             <span className="sidebar-link-text">{link.name}</span>

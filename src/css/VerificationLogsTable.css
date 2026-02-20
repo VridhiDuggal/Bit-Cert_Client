@@ -30,7 +30,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.9rem 1.1rem;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .verification-table tbody tr:hover {
-  background-color: #f9fafb;
+  background-color: #f0f7f0;
 }
 
 .verification-table tbody td {
@@ -53,6 +53,7 @@
   font-size: 0.85rem;
   color: #333;
   vertical-align: middle;
+  text-align: center;
 }
 
 /* Cell Helpers */

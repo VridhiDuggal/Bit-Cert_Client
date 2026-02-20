@@ -15,6 +15,34 @@
 .issuer-navbar-left {
   display: flex;
   align-items: center;
+  gap: 0;
+}
+
+/* Hamburger button (hidden on desktop) */
+.issuer-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.issuer-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #1a202c;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.issuer-hamburger:hover span {
+  background-color: #588157;
 }
 
 .issuer-navbar-title {
@@ -72,11 +100,19 @@
 }
 
 @media (max-width: 768px) {
+  .issuer-hamburger {
+    display: flex;
+  }
+
   .issuer-org-name {
     display: none;
   }
 
   .issuer-navbar {
     padding: 0 1rem;
+  }
+
+  .issuer-navbar-title {
+    font-size: 1rem;
   }
 }

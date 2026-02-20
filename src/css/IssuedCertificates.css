@@ -13,6 +13,12 @@
   margin: 0 0 0.35rem 0;
 }
 
+@media (max-width: 600px) {
+  .issued-certificates-title {
+    font-size: 1.35rem;
+  }
+}
+
 .issued-certificates-subtitle {
   font-size: 0.95rem;
   color: #666;
@@ -25,13 +31,6 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   margin-bottom: 1.5rem;
-}
-
-/* Stats grid */
-.issued-stats-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
 }
 
 .issued-stat-card {

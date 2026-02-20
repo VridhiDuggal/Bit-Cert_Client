@@ -1,12 +1,15 @@
 import React from 'react';
 import '../../css/AdminNavbar.css';
 
-const AdminNavbar = ({ title }) => {
+const AdminNavbar = ({ title, onMenuToggle }) => {
   const role = localStorage.getItem('role') || 'Admin';
 
   return (
     <header className="admin-navbar">
       <div className="admin-navbar-left">
+        <button className="admin-hamburger" onClick={onMenuToggle} aria-label="Toggle menu">
+          <span /><span /><span />
+        </button>
         <h1 className="admin-navbar-title">{title || 'Dashboard'}</h1>
       </div>
 

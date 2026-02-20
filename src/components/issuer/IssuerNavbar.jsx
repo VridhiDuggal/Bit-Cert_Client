@@ -2,10 +2,13 @@ import React from 'react';
 import { issuerInfo } from '../../data/issuerLayoutData';
 import '../../css/IssuerNavbar.css';
 
-const IssuerNavbar = ({ title }) => {
+const IssuerNavbar = ({ title, onMenuToggle }) => {
   return (
     <header className="issuer-navbar">
       <div className="issuer-navbar-left">
+        <button className="issuer-hamburger" onClick={onMenuToggle} aria-label="Toggle menu">
+          <span /><span /><span />
+        </button>
         <h1 className="issuer-navbar-title">{title || 'Dashboard'}</h1>
       </div>
 

@@ -15,6 +15,34 @@
 .admin-navbar-left {
   display: flex;
   align-items: center;
+  gap: 0;
+}
+
+/* Hamburger button (hidden on desktop) */
+.admin-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.admin-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #1a202c;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.admin-hamburger:hover span {
+  background-color: #588157;
 }
 
 .admin-navbar-title {
@@ -53,4 +81,18 @@
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .admin-hamburger {
+    display: flex;
+  }
+
+  .admin-navbar {
+    padding: 0 1rem;
+  }
+
+  .admin-navbar-title {
+    font-size: 1rem;
+  }
 }
