@@ -1,0 +1,141 @@
+/* Student Navbar Styles */
+.student-navbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e8ecef;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.student-navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+/* Hamburger button (hidden on desktop) */
+.student-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.student-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: #1a202c;
+  border-radius: 2px;
+  transition: background-color 0.2s ease;
+}
+
+.student-hamburger:hover span {
+  background-color: #588157;
+}
+
+.student-navbar-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin: 0;
+}
+
+.student-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.student-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-right: 0.75rem;
+}
+
+.student-nav-link {
+  font-size: 0.82rem;
+  color: #5f6b7a;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.student-nav-link:hover {
+  color: #588157;
+  background-color: #f0f5f0;
+}
+
+.student-full-name {
+  font-size: 0.82rem;
+  color: #5f6b7a;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.student-role-badge {
+  background-color: #588157;
+  color: #ffffff;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.student-profile-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #588157;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.student-profile-circle:hover {
+  background-color: #476846;
+}
+
+@media (max-width: 768px) {
+  .student-hamburger {
+    display: flex;
+  }
+
+  .student-full-name,
+  .student-navbar-links {
+    display: none;
+  }
+
+  .student-navbar {
+    padding: 0 1rem;
+  }
+
+  .student-navbar-title {
+    font-size: 1rem;
+  }
+}

@@ -8,6 +8,8 @@ import IssuedCertificates from './components/issuer/IssuedCertificates';
 import IssuerCertificateDetail from './components/issuer/IssuerCertificateDetail';
 import VerificationActivity from './components/issuer/VerificationActivity';
 import IssuerProfile from './components/issuer/IssuerProfile';
+import StudentLayout from './components/student/StudentLayout';
+import MyCertificates from './components/student/MyCertificates';
 import StudentDashboard from './pages/StudentDashboard';
 import VerifierDashboard from './pages/VerifierDashboard';
 import IssueCertificate from './pages/IssueCertificate';
@@ -67,10 +69,15 @@ function App() {
           path="/student"
           element={
             <ProtectedRoute allowedRoles={['Student']}>
-              <StudentDashboard />
+              <StudentLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Navigate to="/student/certificates" replace />} />
+          <Route path="certificates" element={<MyCertificates />} />
+          <Route path="verifications" element={<div>Verification History</div>} />
+          <Route path="profile" element={<div>Student Profile</div>} />
+        </Route>
         <Route
           path="/verifier"
           element={
