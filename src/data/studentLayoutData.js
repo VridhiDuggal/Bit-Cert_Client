@@ -5,11 +5,6 @@ export const studentSidebarLinks = [
     icon: 'certificates',
   },
   {
-    name: 'Verification History',
-    path: '/student/verifications',
-    icon: 'verification',
-  },
-  {
     name: 'Profile',
     path: '/student/profile',
     icon: 'profile',

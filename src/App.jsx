@@ -10,6 +10,12 @@ import VerificationActivity from './components/issuer/VerificationActivity';
 import IssuerProfile from './components/issuer/IssuerProfile';
 import StudentLayout from './components/student/StudentLayout';
 import MyCertificates from './components/student/MyCertificates';
+import CertificateLayout from './components/student/CertificateLayout';
+import CertificatePreviewTab from './components/student/CertificatePreviewTab';
+import CertificateDetailsTab from './components/student/CertificateDetailsTab';
+import CertificateQRTab from './components/student/CertificateQRTab';
+import CertificateHistoryTab from './components/student/CertificateHistoryTab';
+import StudentProfile from './components/student/StudentProfile';
 import StudentDashboard from './pages/StudentDashboard';
 import VerifierDashboard from './pages/VerifierDashboard';
 import IssueCertificate from './pages/IssueCertificate';
@@ -75,8 +81,15 @@ function App() {
         >
           <Route index element={<Navigate to="/student/certificates" replace />} />
           <Route path="certificates" element={<MyCertificates />} />
+          <Route path="certificates/:id" element={<CertificateLayout />}>
+            <Route index element={<Navigate to="preview" replace />} />
+            <Route path="preview" element={<CertificatePreviewTab />} />
+            <Route path="details" element={<CertificateDetailsTab />} />
+            <Route path="qr" element={<CertificateQRTab />} />
+            <Route path="history" element={<CertificateHistoryTab />} />
+          </Route>
           <Route path="verifications" element={<div>Verification History</div>} />
-          <Route path="profile" element={<div>Student Profile</div>} />
+          <Route path="profile" element={<StudentProfile />} />
         </Route>
         <Route
           path="/verifier"

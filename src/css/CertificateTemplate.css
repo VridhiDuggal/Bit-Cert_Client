@@ -1,0 +1,193 @@
+/* Certificate Template — Printable / PDF Layout */
+.cert-template-outer {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  background: #ffffff;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.cert-template-inner {
+  background: #ffffff;
+  border: 3px solid #588157;
+  border-radius: 6px;
+  padding: 40px 50px;
+  position: relative;
+  box-shadow: inset 0 0 0 6px #f4f8f4;
+}
+
+/* Decorative accent lines */
+.cert-template-top-accent {
+  height: 5px;
+  background: linear-gradient(90deg, #588157, #a3c4a0, #588157);
+  border-radius: 3px 3px 0 0;
+  margin: -40px -50px 36px;
+}
+
+.cert-template-bottom-accent {
+  height: 4px;
+  background: linear-gradient(90deg, #588157, #a3c4a0, #588157);
+  border-radius: 0 0 3px 3px;
+  margin: 36px -50px -40px;
+}
+
+/* Header */
+.cert-template-header {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.cert-template-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.cert-template-brand {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #588157;
+  font-family: 'Segoe UI', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.cert-template-org {
+  font-size: 0.75rem;
+  color: #8a9bb0;
+  font-family: 'Segoe UI', sans-serif;
+  font-style: italic;
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+
+/* Thin dividers */
+.cert-template-divider-thin {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #588157, transparent);
+  margin: 1.25rem 0;
+}
+
+/* Title block */
+.cert-template-title-block {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+.cert-template-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.cert-template-subtitle {
+  font-size: 0.9rem;
+  color: #5f6b7a;
+  margin: 0.5rem 0 0;
+  font-style: italic;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Student Name */
+.cert-template-student-name {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #588157;
+  margin: 0.5rem 0;
+  letter-spacing: 0.01em;
+  padding-bottom: 0.25rem;
+  border-bottom: 2px solid #e8f0e8;
+}
+
+/* Has completed text */
+.cert-template-has-completed {
+  text-align: center;
+  font-size: 0.88rem;
+  color: #5f6b7a;
+  font-style: italic;
+  margin: 0.5rem 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Course Name */
+.cert-template-course {
+  text-align: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0.25rem 0;
+  line-height: 1.3;
+}
+
+/* Issued by */
+.cert-template-issued-by {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #5f6b7a;
+  font-style: italic;
+  margin: 0.5rem 0 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cert-template-issuer {
+  color: #588157;
+  font-weight: 600;
+  font-style: normal;
+}
+
+/* Meta Row */
+.cert-template-meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cert-template-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cert-template-meta-label {
+  font-size: 0.65rem;
+  color: #8a9bb0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cert-template-meta-value {
+  font-size: 0.82rem;
+  color: #1a202c;
+  font-weight: 600;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.cert-template-hash {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #588157;
+}
+
+/* QR */
+.cert-template-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.cert-template-qr-label {
+  font-size: 0.65rem;
+  color: #8a9bb0;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}

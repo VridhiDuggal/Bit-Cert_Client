@@ -169,4 +169,31 @@
   .my-cert-grid {
     grid-template-columns: 1fr;
   }
+
+  .my-cert-card {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .my-certificates-title {
+    font-size: 1.1rem;
+  }
+
+  .my-cert-card-title {
+    font-size: 0.9rem;
+  }
+
+  .my-cert-card-row {
+    font-size: 0.78rem;
+  }
+
+  .my-cert-view-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .my-cert-card-footer {
+    justify-content: stretch;
+  }
 }

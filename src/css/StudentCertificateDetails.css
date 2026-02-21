@@ -1,0 +1,283 @@
+/* Student Certificate Details */
+.stu-cert-details-container {
+  width: 100%;
+}
+
+.stu-cert-details-header {
+  margin-bottom: 1.25rem;
+}
+
+.stu-cert-back-btn {
+  background-color: #588157;
+  color: #ffffff;
+  border: none;
+  padding: 0.55rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.stu-cert-back-btn:hover {
+  background-color: #476846;
+}
+
+/* Not Found */
+.stu-cert-not-found {
+  background-color: #ffffff;
+  padding: 3rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stu-cert-not-found h2 {
+  color: #1a202c;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.stu-cert-not-found p {
+  color: #5f6b7a;
+  margin-bottom: 1.5rem;
+  font-size: 0.88rem;
+}
+
+/* Main Card */
+.stu-cert-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+/* Sections */
+.stu-cert-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.stu-cert-section-last {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.stu-cert-section-title {
+  color: #588157;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+/* Overview Top */
+.stu-cert-overview-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.stu-cert-course-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+.stu-cert-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 20px;
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.stu-cert-badge.badge-valid {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.stu-cert-badge.badge-revoked {
+  background-color: #fdecec;
+  color: #c53030;
+}
+
+/* Detail Grid */
+.stu-cert-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.stu-cert-detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stu-cert-label {
+  color: #8a9bb0;
+  font-size: 0.73rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stu-cert-value {
+  color: #1a202c;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Hash Rows */
+.stu-cert-hash-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stu-cert-hash-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.stu-cert-hash-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stu-cert-hash-text {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.8rem;
+  color: #475569;
+  background-color: #f8faf8;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  word-break: break-all;
+  flex: 1;
+  line-height: 1.5;
+}
+
+.stu-cert-copy-btn {
+  background-color: #f0f5f0;
+  color: #588157;
+  border: 1px solid #d4e4d4;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  min-width: 60px;
+  text-align: center;
+}
+
+.stu-cert-copy-btn:hover {
+  background-color: #e2ede2;
+}
+
+/* QR Section */
+.stu-cert-qr-section {
+  text-align: center;
+}
+
+.stu-cert-qr-section .stu-cert-section-title {
+  text-align: left;
+}
+
+.stu-cert-qr-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.stu-cert-qr-box {
+  padding: 1.5rem;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  display: inline-flex;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stu-cert-qr-caption {
+  font-size: 0.84rem;
+  color: #5f6b7a;
+  font-weight: 500;
+  margin: 0.5rem 0 0;
+}
+
+.stu-cert-qr-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.stu-cert-action-btn {
+  background-color: #588157;
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1.15rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  min-width: 120px;
+}
+
+.stu-cert-action-btn:hover {
+  background-color: #476846;
+}
+
+.stu-cert-action-btn.outline {
+  background-color: #ffffff;
+  color: #588157;
+  border: 1px solid #588157;
+}
+
+.stu-cert-action-btn.outline:hover {
+  background-color: #f0f5f0;
+}
+
+@media (max-width: 768px) {
+  .stu-cert-card {
+    padding: 1.25rem;
+  }
+
+  .stu-cert-detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stu-cert-course-name {
+    font-size: 1.15rem;
+  }
+
+  .stu-cert-hash-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .stu-cert-copy-btn {
+    align-self: flex-start;
+  }
+
+  .stu-cert-qr-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

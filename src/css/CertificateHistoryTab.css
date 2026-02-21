@@ -1,0 +1,119 @@
+/* Certificate History Tab */
+.cert-hist-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.cert-hist-title {
+  color: #588157;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.01em;
+}
+
+.cert-hist-empty {
+  color: #5f6b7a;
+  font-size: 0.88rem;
+  text-align: center;
+  padding: 2.5rem 0;
+  margin: 0;
+}
+
+.cert-hist-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.cert-hist-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+}
+
+.cert-hist-table thead tr {
+  background-color: #588157;
+}
+
+.cert-hist-table thead th {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.cert-hist-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+
+.cert-hist-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.cert-hist-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.15s ease;
+}
+
+.cert-hist-table tbody tr:hover {
+  background-color: #f9fbf9;
+}
+
+.cert-hist-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.cert-hist-table tbody td {
+  padding: 0.75rem 1rem;
+  font-size: 0.84rem;
+  color: #333;
+  vertical-align: middle;
+}
+
+.cert-hist-email {
+  color: #5f6b7a;
+}
+
+.cert-hist-date {
+  white-space: nowrap;
+  color: #5f6b7a;
+}
+
+.cert-hist-badge {
+  display: inline-block;
+  padding: 0.22rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.71rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.cert-hist-badge.valid {
+  background-color: #e6f4ea;
+  color: #1e7e34;
+}
+
+.cert-hist-badge.invalid {
+  background-color: #fdecec;
+  color: #c53030;
+}
+
+@media (max-width: 768px) {
+  .cert-hist-card {
+    padding: 1.25rem;
+  }
+
+  .cert-hist-table thead th,
+  .cert-hist-table tbody td {
+    padding: 0.6rem 0.7rem;
+  }
+}
