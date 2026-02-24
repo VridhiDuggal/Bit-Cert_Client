@@ -9,7 +9,7 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
-  // Hardcoded users for frontend-only authentication
+  // Hardcoded users for frontend only authentication
   const users = [
     { email: "admin@bitcert.com", password: "Admin123", role: "Admin" },
     { email: "issuer@bitcert.com", password: "Issuer123", role: "Issuer" },

@@ -1,0 +1,56 @@
+/* Verifier Layout */
+.verifier-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f7f8fa;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+.verifier-main {
+  flex: 1;
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: calc(100vw - 250px);
+  max-width: calc(100vw - 250px);
+}
+
+.verifier-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Sidebar overlay backdrop (mobile) */
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 150;
+    cursor: pointer;
+  }
+
+  .verifier-main {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .verifier-content {
+    padding: 1rem;
+  }
+}

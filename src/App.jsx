@@ -17,7 +17,11 @@ import CertificateQRTab from './components/student/CertificateQRTab';
 import CertificateHistoryTab from './components/student/CertificateHistoryTab';
 import StudentProfile from './components/student/StudentProfile';
 import StudentDashboard from './pages/StudentDashboard';
-import VerifierDashboard from './pages/VerifierDashboard';
+import VerifierLayout from './components/verifier/VerifierLayout';
+import VerifyCertificateVerifier from './pages/verifier/VerifyCertificate';
+import VerificationResultPage from './pages/verifier/VerificationResultPage';
+import VerificationHistory from './pages/verifier/VerificationHistory';
+import VerifierProfile from './pages/verifier/VerifierProfile';
 import IssueCertificate from './pages/IssueCertificate';
 import VerifyCertificate from './pages/VerifyCertificate';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -95,10 +99,15 @@ function App() {
           path="/verifier"
           element={
             <ProtectedRoute allowedRoles={['Verifier']}>
-              <VerifierDashboard />
+              <VerifierLayout />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<VerifyCertificateVerifier />} />
+          <Route path="result/:certificateId" element={<VerificationResultPage />} />
+          <Route path="history" element={<VerificationHistory />} />
+          <Route path="profile" element={<VerifierProfile />} />
+        </Route>
         <Route
           path="/issue-certificate"
           element={

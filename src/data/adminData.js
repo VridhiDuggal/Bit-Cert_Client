@@ -1,4 +1,4 @@
-// Admin Mock Data for Bit-Cert Frontend
+// Admin Mock Data for Frontend
 
 export const adminStats = {
   totalUsers: 1248,

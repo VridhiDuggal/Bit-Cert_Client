@@ -1,88 +1,164 @@
-/* Verify Certificate Page Styles */
-.verify-certificate {
-  min-height: 100vh;
-  background-color: #ecf0f1;
+/* Verify Certificate Page */
+.verify-certificate-page {
+  width: 100%;
 }
 
-.verify-content {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+
+
+.verify-certificate-page .page-header {
+  margin-bottom: 1.75rem;
 }
 
-.verify-title {
-  color: #2c3e50;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  text-align: center;
+.verify-certificate-page .page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0 0 0.35rem;
 }
 
-.verify-container {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.verify-certificate-page .page-subtitle {
+  font-size: 0.875rem;
+  color: #5f6b7a;
+  margin: 0;
 }
 
-.verify-form {
-  margin-bottom: 2rem;
+/* Form Card */
+.verify-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
+.verify-form-card .divider-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
 }
 
-.form-group label {
-  display: block;
-  color: #34495e;
+.verify-form-card .divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: #e5e5e5;
+}
+
+.verify-form-card .divider-text {
+  font-size: 0.8rem;
+  color: #9ca3af;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+.verify-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
 }
 
-.form-group input:focus {
+.verify-form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.verify-form-group input {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #333;
   outline: none;
-  border-color: #3498db;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.verify-button {
-  background-color: #3498db;
-  color: #fff;
+.verify-form-group input:focus {
+  border-color: #588157;
+  box-shadow: 0 0 0 3px rgba(88, 129, 87, 0.12);
+}
+
+.verify-form-group input::placeholder {
+  color: #aaa;
+}
+
+.verify-form-error {
+  font-size: 0.78rem;
+  color: #e53e3e;
+  margin-top: 0.75rem;
+}
+
+.verify-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: fit-content;
+  min-width: 220px;
+  padding: 0.75rem 2.5rem;
+  margin: 1.5rem auto 0;
+  background-color: #588157;
+  color: #ffffff;
   border: none;
-  padding: 0.75rem 2rem;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
+  transition: background-color 0.2s ease;
 }
 
-.verify-button:hover {
-  background-color: #2980b9;
+.verify-submit-btn:hover {
+  background-color: #476846;
 }
 
-.verification-result {
-  padding: 1.5rem;
-  background-color: #f8f9fa;
-  border-radius: 4px;
-  border-left: 4px solid #3498db;
+.verify-submit-btn svg {
+  flex-shrink: 0;
 }
 
-.verification-result h2 {
-  color: #2c3e50;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+/* Glassmorphism Tab Navbar */
+.verify-tab-navbar {
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 4px 24px rgba(88, 129, 87, 0.12), 0 1px 4px rgba(0, 0, 0, 0.06);
 }
 
-.verification-result p {
-  color: #7f8c8d;
-  line-height: 1.6;
+.verify-tab-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #5f6b7a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.verify-tab-btn:hover:not(.active) {
+  background: rgba(88, 129, 87, 0.08);
+  color: #588157;
+}
+
+.verify-tab-btn.active {
+  background: #588157;
+  color: #ffffff;
+  box-shadow: 0 2px 10px rgba(88, 129, 87, 0.4);
+}
+
+.verify-tab-btn svg {
+  flex-shrink: 0;
+  transition: stroke 0.2s ease;
 }
