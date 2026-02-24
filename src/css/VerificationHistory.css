@@ -19,3 +19,14 @@
   color: #5f6b7a;
   margin: 0;
 }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  .verification-history-page .page-title {
+    font-size: 1.25rem;
+  }
+
+  .verification-history-page .page-header {
+    margin-bottom: 1.25rem;
+  }
+}

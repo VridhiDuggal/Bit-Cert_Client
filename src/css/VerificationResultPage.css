@@ -230,16 +230,57 @@
   background-color: #476846;
 }
 
+@media (max-width: 768px) {
+  .result-details-card {
+    padding: 1.25rem;
+  }
+
+  .result-banner {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .invalid-result-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .invalid-title {
+    font-size: 1.2rem;
+  }
+
+  .invalid-subtitle {
+    font-size: 0.82rem;
+  }
+
+  .result-back-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 @media (max-width: 480px) {
   .result-details-grid {
     grid-template-columns: 1fr;
   }
 
   .result-banner {
-    padding: 1.5rem;
+    padding: 1.25rem 1rem;
   }
 
   .result-banner .banner-title {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+  }
+
+  .invalid-icon-ring {
+    width: 58px;
+    height: 58px;
+  }
+
+  .invalid-icon-ring svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .result-field-value.mono {
+    font-size: 0.72rem;
   }
 }

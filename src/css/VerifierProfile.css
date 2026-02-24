@@ -100,7 +100,7 @@
   border-top: 3px solid #588157;
   padding: 1.25rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  text-align: center;
+  text-align: left;
   transition: box-shadow 0.2s ease;
 }
 
@@ -108,19 +108,38 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
 }
 
+.summary-stat-card .stat-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #5f6b7a;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.35rem;
+}
+
 .summary-stat-card .stat-value {
   font-size: 1.75rem;
   font-weight: 800;
   color: #1a202c;
-  margin: 0 0 0.25rem;
+  margin: 0;
 }
 
-.summary-stat-card .stat-label {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: #5f6b7a;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+@media (max-width: 768px) {
+  .verifier-profile-page .page-title {
+    font-size: 1.25rem;
+  }
+
+  .profile-info-card {
+    padding: 1.25rem;
+  }
+
+  .verification-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .summary-stat-card .stat-value {
+    font-size: 1.4rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -130,5 +149,13 @@
 
   .verification-summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .profile-info-card {
+    padding: 1rem;
+  }
+
+  .summary-stat-card {
+    padding: 1rem;
   }
 }

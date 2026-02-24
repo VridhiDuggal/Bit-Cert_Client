@@ -162,3 +162,45 @@
   flex-shrink: 0;
   transition: stroke 0.2s ease;
 }
+
+/* ── Responsive ─────────────────────────────── */
+@media (max-width: 768px) {
+  .verify-certificate-page .page-title {
+    font-size: 1.25rem;
+  }
+
+  .verify-tab-navbar {
+    border-radius: 10px;
+    margin-bottom: 1.25rem;
+  }
+
+  .verify-tab-btn {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.65rem;
+    gap: 0.35rem;
+  }
+
+  .verify-form-card {
+    padding: 1.25rem;
+  }
+
+  .verify-submit-btn {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .verify-tab-btn span,
+  .verify-tab-btn {
+    font-size: 0.75rem;
+  }
+
+  .verify-form-card {
+    padding: 1rem;
+  }
+
+  .verify-form-group input {
+    font-size: 0.82rem;
+  }
+}

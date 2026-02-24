@@ -15,16 +15,16 @@ const VerifierProfile = () => {
       {/* Section 1 — Verification Summary (top) */}
       <div className="verification-summary-grid">
         <div className="summary-stat-card">
-          <p className="stat-value">{profile.totalVerifications}</p>
           <p className="stat-label">Total Verifications</p>
+          <p className="stat-value">{profile.totalVerifications}</p>
         </div>
         <div className="summary-stat-card">
-          <p className="stat-value">{profile.successfulVerifications}</p>
           <p className="stat-label">Successful</p>
+          <p className="stat-value">{profile.successfulVerifications}</p>
         </div>
         <div className="summary-stat-card">
-          <p className="stat-value">{profile.failedVerifications}</p>
           <p className="stat-label">Failed</p>
+          <p className="stat-value">{profile.failedVerifications}</p>
         </div>
       </div>
 
