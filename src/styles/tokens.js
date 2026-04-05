@@ -1,0 +1,9 @@
+export const PRIMARY = '#588157';
+export const PRIMARY_LIGHT = '#eef4ee';
+export const PRIMARY_MID = '#c8dfc8';
+export const ERROR = '#ef4444';
+export const BORDER = '#e5e7eb';
+export const TEXT = '#1a202c';
+export const MUTED = '#6b7280';
+export const BG_SUBTLE = '#f9fafb';
+export const WHITE = '#fff';
