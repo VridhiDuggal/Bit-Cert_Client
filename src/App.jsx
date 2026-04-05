@@ -33,6 +33,7 @@ import CertificateDetails from './components/admin/CertificateDetails';
 import ManageVerificationLogs from './components/admin/ManageVerificationLogs';
 import ManageBlockchainLogs from './components/admin/ManageBlockchainLogs';
 import BlockchainLogDetails from './components/admin/BlockchainLogDetails';
+import LandingPage from './features/public/pages/LandingPage';
 
 function App() {
   return (
@@ -117,7 +118,11 @@ function App() {
           }
         />
         <Route path="/verify-certificate" element={<VerifyCertificate />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/verify" element={<VerifyCertificate />} />
+        <Route path="/verify/:hash" element={<VerifyCertificate />} />
+        <Route path="/org/login" element={<Login />} />
+        <Route path="/recipient/login" element={<Login />} />
+        <Route path="/" element={<LandingPage />} />
       </Routes>
     </Router>
   );
