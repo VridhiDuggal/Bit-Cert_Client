@@ -1,0 +1,10 @@
+export const selectDashboardStats = (state) => state.orgDashboard.stats;
+export const selectDashboardTableData = (state) => state.orgDashboard.tableData;
+export const selectDashboardTotal = (state) => state.orgDashboard.total;
+export const selectDashboardPage = (state) => state.orgDashboard.page;
+export const selectDashboardLimit = (state) => state.orgDashboard.limit;
+export const selectDashboardSearch = (state) => state.orgDashboard.search;
+export const selectDashboardStatsLoading = (state) => state.orgDashboard.statsLoading;
+export const selectDashboardTableLoading = (state) => state.orgDashboard.tableLoading;
+export const selectDashboardStatsError = (state) => state.orgDashboard.statsError;
+export const selectDashboardTableError = (state) => state.orgDashboard.tableError;

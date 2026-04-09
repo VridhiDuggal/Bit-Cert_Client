@@ -24,3 +24,11 @@ export function getAuditLogs(token, page = 1, limit = 10) {
   return request(`/api/org/audit-logs?page=${page}&limit=${limit}`, { token });
 }
 
+export function revokeCertificate(token, cert_hash, password) {
+  return request(`/api/org/certificate/revoke/${cert_hash}`, { method: 'POST', body: { password }, token });
+}
+
+export function changePassword(token, data) {
+  return request('/api/org/change-password', { method: 'POST', body: data, token });
+}
+

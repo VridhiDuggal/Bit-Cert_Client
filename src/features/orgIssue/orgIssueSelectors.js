@@ -1,0 +1,14 @@
+export const selectIssueCertificates  = (state) => state.orgIssue.certificates;
+export const selectIssueTotal         = (state) => state.orgIssue.total;
+export const selectIssuePage          = (state) => state.orgIssue.page;
+export const selectIssueLimit         = (state) => state.orgIssue.limit;
+export const selectIssueSearch        = (state) => state.orgIssue.search;
+export const selectIssueLoading       = (state) => state.orgIssue.loading;
+export const selectIssueError         = (state) => state.orgIssue.error;
+export const selectIssuing            = (state) => state.orgIssue.issuing;
+export const selectIssueError2        = (state) => state.orgIssue.issueError;
+export const selectSelectedCert       = (state) => state.orgIssue.selectedCert;
+export const selectDetailLoading      = (state) => state.orgIssue.detailLoading;
+export const selectDetailError        = (state) => state.orgIssue.detailError;
+export const selectRevoking           = (state) => state.orgIssue.revoking;
+export const selectRevokeError        = (state) => state.orgIssue.revokeError;

@@ -6,27 +6,54 @@ import {
   Users,
   BadgeCheck,
   ScrollText,
+  Settings,
   LogOut,
 } from 'lucide-react';
 import { logout } from '../../store/auth/authSlice';
 import { selectOrgName } from '../../store/auth/authSelectors';
 import { useToast } from '../../hooks/useToast';
-import { PRIMARY, PRIMARY_LIGHT, TEXT, MUTED, BORDER } from '../../styles/tokens';
+import { PRIMARY, TEXT, MUTED, BORDER } from '../../styles/tokens';
 
 const NAV_ITEMS = [
-  { label: 'Dashboard',        to: '/org/dashboard',    Icon: LayoutDashboard },
-  { label: 'Issue Certificate',to: '/org/issue',        Icon: FilePlus },
-  { label: 'Recipients',       to: '/org/recipients',   Icon: Users },
-  { label: 'Certificates',     to: '/org/certificates', Icon: BadgeCheck },
-  { label: 'Audit Logs',       to: '/org/audit-logs',   Icon: ScrollText },
+  { label: 'Dashboard',         to: '/org/dashboard',    Icon: LayoutDashboard },
+  { label: 'Issue Certificate', to: '/org/issue',        Icon: FilePlus },
+  { label: 'Recipients',        to: '/org/recipients',   Icon: Users },
+  { label: 'Certificates',      to: '/org/certificates', Icon: BadgeCheck },
+  { label: 'Audit Logs',        to: '/org/audit-logs',   Icon: ScrollText },
 ];
 
+function NavItem({ to, Icon, label, active }) {
+  return (
+    <NavLink
+      to={to}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        padding: '8px 12px',
+        borderRadius: 8,
+        fontSize: 13,
+        fontWeight: active ? 600 : 400,
+        color: active ? PRIMARY : MUTED,
+        backgroundColor: active ? `${PRIMARY}12` : 'transparent',
+        textDecoration: 'none',
+        transition: 'background 0.12s, color 0.12s',
+      }}
+      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.backgroundColor = '#f3f4f6'; e.currentTarget.style.color = TEXT; } }}
+      onMouseLeave={(e) => { if (!active) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = MUTED; } }}
+    >
+      <Icon size={15} strokeWidth={active ? 2.2 : 1.8} style={{ flexShrink: 0 }} />
+      <span>{label}</span>
+    </NavLink>
+  );
+}
+
 export function Sidebar() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const orgName = useSelector(selectOrgName);
-  const toast = useToast();
+  const dispatch  = useDispatch();
+  const navigate  = useNavigate();
+  const location  = useLocation();
+  const orgName   = useSelector(selectOrgName);
+  const toast     = useToast();
 
   const handleLogout = () => {
     dispatch(logout());
@@ -34,9 +61,11 @@ export function Sidebar() {
     navigate('/');
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <aside style={{
-      width: 240,
+      width: 220,
       minHeight: '100vh',
       backgroundColor: '#fff',
       borderRight: `1px solid ${BORDER}`,
@@ -48,45 +77,50 @@ export function Sidebar() {
       left: 0,
       bottom: 0,
     }}>
-      <div style={{ padding: '20px 20px 16px', borderBottom: `1px solid ${BORDER}` }}>
-        <span style={{ fontSize: 18, fontWeight: 800, color: PRIMARY }}>Bit-Cert</span>
+      <div style={{ padding: '18px 16px 14px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{
+            width: 28,
+            height: 28,
+            borderRadius: 7,
+            backgroundColor: PRIMARY,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}>
+            <BadgeCheck size={16} color="#fff" strokeWidth={2.5} />
+          </div>
+          <span style={{ fontSize: 15, fontWeight: 700, color: TEXT, letterSpacing: -0.3 }}>Bit-Cert</span>
+        </div>
         {orgName && (
-          <p style={{ fontSize: 12, color: MUTED, marginTop: 4, marginBottom: 0, fontWeight: 500, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-            {orgName}
-          </p>
+          <div style={{
+            marginTop: 12,
+            padding: '8px 10px',
+            backgroundColor: '#f9fafb',
+            borderRadius: 8,
+            border: `1px solid ${BORDER}`,
+          }}>
+            <p style={{ fontSize: 10, fontWeight: 600, color: MUTED, textTransform: 'uppercase', letterSpacing: 0.8, margin: '0 0 2px' }}>Organisation</p>
+            <p style={{ fontSize: 12, fontWeight: 600, color: TEXT, margin: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+              {orgName}
+            </p>
+          </div>
         )}
       </div>
 
-      <nav style={{ flex: 1, padding: '12px 10px', display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {NAV_ITEMS.map(({ label, to, Icon }) => {
-          const active = location.pathname === to;
-          return (
-            <NavLink
-              key={to}
-              to={to}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: '9px 12px',
-                borderRadius: 10,
-                fontSize: 13,
-                fontWeight: active ? 700 : 500,
-                color: active ? PRIMARY : TEXT,
-                backgroundColor: active ? PRIMARY_LIGHT : 'transparent',
-                textDecoration: 'none',
-                borderLeft: active ? `3px solid ${PRIMARY}` : '3px solid transparent',
-                transition: 'background 0.15s, color 0.15s',
-              }}
-            >
-              <Icon size={16} style={{ flexShrink: 0 }} />
-              {label}
-            </NavLink>
-          );
-        })}
+      <div style={{ height: 1, backgroundColor: BORDER, margin: '0 16px' }} />
+
+      <nav style={{ flex: 1, padding: '10px 8px', display: 'flex', flexDirection: 'column', gap: 1 }}>
+        {NAV_ITEMS.map(({ label, to, Icon }) => (
+          <NavItem key={to} to={to} Icon={Icon} label={label} active={isActive(to)} />
+        ))}
       </nav>
 
-      <div style={{ padding: '12px 10px', borderTop: `1px solid ${BORDER}` }}>
+      <div style={{ height: 1, backgroundColor: BORDER, margin: '0 16px' }} />
+
+      <div style={{ padding: '8px 8px 12px', display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <NavItem to="/org/settings" Icon={Settings} label="Settings" active={isActive('/org/settings')} />
         <button
           onClick={handleLogout}
           style={{
@@ -94,19 +128,22 @@ export function Sidebar() {
             alignItems: 'center',
             gap: 10,
             width: '100%',
-            padding: '9px 12px',
-            borderRadius: 10,
+            padding: '8px 12px',
+            borderRadius: 8,
             fontSize: 13,
-            fontWeight: 500,
+            fontWeight: 400,
             color: MUTED,
             background: 'none',
             border: 'none',
             cursor: 'pointer',
             textAlign: 'left',
+            transition: 'background 0.12s, color 0.12s',
           }}
+          onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = '#fef2f2'; e.currentTarget.style.color = '#dc2626'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = MUTED; }}
         >
-          <LogOut size={16} />
-          Log out
+          <LogOut size={15} strokeWidth={1.8} style={{ flexShrink: 0 }} />
+          <span>Log out</span>
         </button>
       </div>
     </aside>
