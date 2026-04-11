@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { TEXT } from '../../styles/tokens';
 
 const MAX_WIDTH = { sm: 360, md: 480, lg: 640 };
@@ -21,11 +22,11 @@ export function Modal({ isOpen, onClose, title, children, size = 'md', isDirty =
     onClose();
   };
 
-  return (
+  return createPortal(
     <div
       onClick={handleBackdropClick}
       style={{
-        position: 'fixed', inset: 0, zIndex: 100,
+        position: 'fixed', inset: 0, zIndex: 1000,
         backgroundColor: 'rgba(0,0,0,0.45)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: 24,
@@ -40,6 +41,8 @@ export function Modal({ isOpen, onClose, title, children, size = 'md', isDirty =
           width: '100%',
           maxWidth: MAX_WIDTH[size] ?? MAX_WIDTH.md,
           boxShadow: '0 24px 64px rgba(0,0,0,0.18)',
+          maxHeight: 'calc(100vh - 48px)',
+          overflowY: 'auto',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
@@ -62,6 +65,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md', isDirty =
         )}
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

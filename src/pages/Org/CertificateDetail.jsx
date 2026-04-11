@@ -3,8 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { QRCodeSVG } from 'qrcode.react';
 import { OrgLayout } from '../../components/org/OrgLayout';
+import { PageTransition } from '../../components/shared/PageTransition';
 import { Button } from '../../components/ui/Button';
 import { Loader } from '../../components/ui/Loader';
+import { VerificationChart } from '../../components/ui/VerificationChart';
 import { selectToken } from '../../store/auth/authSelectors';
 import { fetchCertificateDetail } from '../../features/orgIssue/orgIssueThunks';
 import { clearSelectedCert } from '../../features/orgIssue/orgIssueSlice';
@@ -15,7 +17,7 @@ import {
 } from '../../features/orgIssue/orgIssueSelectors';
 import { BORDER, TEXT, MUTED, BG_SUBTLE, PRIMARY } from '../../styles/tokens';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
 
 function StatusBadge({ is_revoked }) {
   return (
@@ -63,6 +65,7 @@ export default function CertificateDetail() {
 
   return (
     <OrgLayout title="Certificate Details" subtitle="Full certificate information">
+      <PageTransition>
       <div style={{ maxWidth: 720 }}>
         <button
           onClick={() => navigate(-1)}
@@ -150,9 +153,31 @@ export default function CertificateDetail() {
                 Download PDF
               </a>
             )}
+
+            {cert.verification_history && (
+              <div style={{ backgroundColor: '#fff', borderRadius: 16, padding: 28, border: `1px solid ${BORDER}` }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: TEXT, marginBottom: 12 }}>Verification Activity</div>
+                <div style={{ display: 'flex', gap: 24, marginBottom: 16 }}>
+                  <div>
+                    <span style={{ fontSize: 22, fontWeight: 700, color: PRIMARY }}>
+                      {cert.verification_history.total_verifications ?? 0}
+                    </span>
+                    <span style={{ fontSize: 12, color: MUTED, marginLeft: 4 }}>total verifications</span>
+                  </div>
+                  <div style={{ alignSelf: 'flex-end', fontSize: 12, color: MUTED }}>
+                    Last verified:{' '}
+                    {cert.verification_history.last_verified_at
+                      ? new Date(cert.verification_history.last_verified_at).toLocaleDateString()
+                      : 'Never'}
+                  </div>
+                </div>
+                <VerificationChart weekly_counts={cert.verification_history.weekly_counts} loading={false} />
+              </div>
+            )}
           </div>
         )}
       </div>
+      </PageTransition>
     </OrgLayout>
   );
 }

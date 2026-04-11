@@ -4,6 +4,9 @@ import {
   submitIssueCertificate,
   fetchCertificateDetail,
   submitRevokeCertificate,
+  fetchVerificationHistory,
+  submitResendCertificate,
+  fetchRecipientSearch,
 } from './orgIssueThunks';
 
 const initialState = {
@@ -12,6 +15,13 @@ const initialState = {
   page: 1,
   limit: 10,
   search: '',
+  filters: {
+    tags: [],
+    expiry_status: '',
+    status: '',
+    date_from: '',
+    date_to: '',
+  },
   loading: false,
   error: null,
   issuing: false,
@@ -21,6 +31,15 @@ const initialState = {
   detailError: null,
   revoking: false,
   revokeError: null,
+  verificationHistory: [],
+  vhLoading: false,
+  vhTotal: 0,
+  vhPage: 1,
+  vhError: null,
+  resending: false,
+  resendError: null,
+  recipientResults: [],
+  recipientSearchLoading: false,
 };
 
 const orgIssueSlice = createSlice({
@@ -34,15 +53,36 @@ const orgIssueSlice = createSlice({
       state.search = action.payload;
       state.page = 1;
     },
+    setFilters(state, action) {
+      state.filters = { ...state.filters, ...action.payload };
+      state.page = 1;
+    },
+    resetFilters(state) {
+      state.filters = { tags: [], expiry_status: '', status: '', date_from: '', date_to: '' };
+      state.search = '';
+      state.page = 1;
+    },
+    setVhPage(state, action) {
+      state.vhPage = action.payload;
+    },
     clearSelectedCert(state) {
       state.selectedCert = null;
       state.detailError = null;
+      state.verificationHistory = [];
+      state.vhTotal = 0;
+      state.vhPage = 1;
     },
     clearIssueError(state) {
       state.issueError = null;
     },
     clearRevokeError(state) {
       state.revokeError = null;
+    },
+    clearResendError(state) {
+      state.resendError = null;
+    },
+    clearRecipientResults(state) {
+      state.recipientResults = [];
     },
   },
   extraReducers: (builder) => {
@@ -101,9 +141,45 @@ const orgIssueSlice = createSlice({
       .addCase(submitRevokeCertificate.rejected, (state, action) => {
         state.revoking = false;
         state.revokeError = action.payload;
+      })
+      .addCase(fetchVerificationHistory.pending, (state) => {
+        state.vhLoading = true;
+        state.vhError = null;
+      })
+      .addCase(fetchVerificationHistory.fulfilled, (state, action) => {
+        state.vhLoading = false;
+        state.verificationHistory = action.payload.logs;
+        state.vhTotal = action.payload.total;
+        state.vhPage = action.payload.page;
+      })
+      .addCase(fetchVerificationHistory.rejected, (state, action) => {
+        state.vhLoading = false;
+        state.vhError = action.payload;
+      })
+      .addCase(submitResendCertificate.pending, (state) => {
+        state.resending = true;
+        state.resendError = null;
+      })
+      .addCase(submitResendCertificate.fulfilled, (state) => {
+        state.resending = false;
+      })
+      .addCase(submitResendCertificate.rejected, (state, action) => {
+        state.resending = false;
+        state.resendError = action.payload;
+      })
+      .addCase(fetchRecipientSearch.pending, (state) => {
+        state.recipientSearchLoading = true;
+      })
+      .addCase(fetchRecipientSearch.fulfilled, (state, action) => {
+        state.recipientSearchLoading = false;
+        state.recipientResults = action.payload;
+      })
+      .addCase(fetchRecipientSearch.rejected, (state) => {
+        state.recipientSearchLoading = false;
+        state.recipientResults = [];
       });
   },
 });
 
-export const { setPage, setSearch, clearSelectedCert, clearIssueError, clearRevokeError } = orgIssueSlice.actions;
+export const { setPage, setSearch, setFilters, resetFilters, setVhPage, clearSelectedCert, clearIssueError, clearRevokeError, clearResendError, clearRecipientResults } = orgIssueSlice.actions;
 export default orgIssueSlice.reducer;

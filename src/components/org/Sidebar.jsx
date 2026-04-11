@@ -8,6 +8,7 @@ import {
   ScrollText,
   Settings,
   LogOut,
+  ShieldCheck,
 } from 'lucide-react';
 import { logout } from '../../store/auth/authSlice';
 import { selectOrgName } from '../../store/auth/authSelectors';
@@ -19,6 +20,7 @@ const NAV_ITEMS = [
   { label: 'Issue Certificate', to: '/org/issue',        Icon: FilePlus },
   { label: 'Recipients',        to: '/org/recipients',   Icon: Users },
   { label: 'Certificates',      to: '/org/certificates', Icon: BadgeCheck },
+  { label: 'Verify',            to: '/org/verify',       Icon: ShieldCheck },
   { label: 'Audit Logs',        to: '/org/audit-logs',   Icon: ScrollText },
 ];
 

@@ -8,3 +8,7 @@ export const selectDashboardStatsLoading = (state) => state.orgDashboard.statsLo
 export const selectDashboardTableLoading = (state) => state.orgDashboard.tableLoading;
 export const selectDashboardStatsError = (state) => state.orgDashboard.statsError;
 export const selectDashboardTableError = (state) => state.orgDashboard.tableError;
+export const selectDashboardActivity = (state) => state.orgDashboard.activity;
+export const selectDashboardActivityLoading = (state) => state.orgDashboard.activityLoading;
+export const selectDashboardChartData = (state) => state.orgDashboard.chartData;
+export const selectDashboardChartLoading = (state) => state.orgDashboard.chartLoading;

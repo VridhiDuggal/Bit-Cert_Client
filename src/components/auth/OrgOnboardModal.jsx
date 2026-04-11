@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Modal } from '../ui/Modal';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
 import { onboardOrg } from '../../api/org.api';
 import { useToast } from '../../hooks/useToast';
+import { loginSuccess } from '../../store/auth/authSlice';
 import { MUTED, PRIMARY } from '../../styles/tokens';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export function OrgOnboardModal({ isOpen, onClose, onSuccessOpenLogin, onSwitchToLogin }) {
-  const toast = useToast();
+  const dispatch  = useDispatch();
+  const navigate  = useNavigate();
+  const toast     = useToast();
   const [fields, setFields] = useState({ org_name: '', email: '', password: '' });
   const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState('');
@@ -60,10 +65,11 @@ export function OrgOnboardModal({ isOpen, onClose, onSuccessOpenLogin, onSwitchT
     setFieldErrors({});
     setIsConflict(false);
     try {
-      await onboardOrg({ org_name: fields.org_name, email: fields.email, password: fields.password });
-      toast.success('Organisation registered. Please log in.');
+      const result = await onboardOrg({ org_name: fields.org_name, email: fields.email, password: fields.password });
+      dispatch(loginSuccess({ org: result.org, token: result.token, expiresAt: result.expiresAt }));
+      toast.success(`Welcome to Bit-Cert, ${result.org.org_name}! 🎉`);
       onClose();
-      onSuccessOpenLogin();
+      navigate('/org/dashboard');
     } catch (err) {
       if (err.status === 409) {
         setIsConflict(true);

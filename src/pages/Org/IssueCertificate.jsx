@@ -40,7 +40,7 @@ import {
 } from '../../features/orgIssue/orgIssueSelectors';
 import { PRIMARY, BORDER, TEXT, MUTED, BG_SUBTLE, ERROR } from '../../styles/tokens';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
 
 const EMPTY_FORM = {
   recipient_name: '',

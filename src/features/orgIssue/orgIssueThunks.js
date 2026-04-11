@@ -3,14 +3,17 @@ import {
   issueCertificate,
   fetchCertificates,
   fetchCertificateById,
+  getVerificationHistory,
+  resendCertificate,
+  searchRecipients,
 } from '../../api/orgIssue.api';
 import { revokeCertificate } from '../../api/org.api';
 
 export const fetchIssueCertificates = createAsyncThunk(
   'orgIssue/fetchCertificates',
-  async ({ token, page, limit, search }, { rejectWithValue }) => {
+  async ({ token, page, limit, filters }, { rejectWithValue }) => {
     try {
-      const { success: _s, ...result } = await fetchCertificates(token, page, limit, search);
+      const { success: _s, ...result } = await fetchCertificates(token, page, limit, filters ?? {});
       return result;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -48,6 +51,42 @@ export const submitRevokeCertificate = createAsyncThunk(
     try {
       await revokeCertificate(token, cert_hash, password);
       return cert_hash;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const fetchVerificationHistory = createAsyncThunk(
+  'orgIssue/fetchVerificationHistory',
+  async ({ token, certId, page }, { rejectWithValue }) => {
+    try {
+      const { success: _s, ...result } = await getVerificationHistory(token, certId, page);
+      return result;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const submitResendCertificate = createAsyncThunk(
+  'orgIssue/resend',
+  async ({ token, certId }, { rejectWithValue }) => {
+    try {
+      const result = await resendCertificate(token, certId);
+      return result;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const fetchRecipientSearch = createAsyncThunk(
+  'orgIssue/searchRecipients',
+  async ({ token, query }, { rejectWithValue }) => {
+    try {
+      const res = await searchRecipients(token, query);
+      return res.data ?? [];
     } catch (err) {
       return rejectWithValue(err.message);
     }

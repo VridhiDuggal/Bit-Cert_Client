@@ -9,3 +9,11 @@ export function fetchCertificates(token, page = 1, limit = 10, search = '') {
   if (search) params.set('search', search);
   return request(`/api/org/certificates?${params}`, { token });
 }
+
+export function getDashboardActivity(token) {
+  return request('/api/org/dashboard/activity', { token });
+}
+
+export function getDashboardChart(token) {
+  return request('/api/org/dashboard/chart', { token });
+}

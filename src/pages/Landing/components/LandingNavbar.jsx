@@ -4,7 +4,7 @@ import { ChevronRight } from 'lucide-react';
 const P = '#588157';
 const PL = '#eef4ee';
 
-export function LandingNavbar({ onLoginOpen, onOnboardOpen }) {
+export function LandingNavbar({ onLoginOpen, onOnboardOpen, onRecipientLoginOpen }) {
   const navigate = useNavigate();
   const go = (route) => navigate(route);
 
@@ -25,6 +25,14 @@ export function LandingNavbar({ onLoginOpen, onOnboardOpen }) {
         </nav>
 
         <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+          <button
+            onClick={onRecipientLoginOpen}
+            style={{ fontSize: 13, fontWeight: 600, padding: '8px 18px', borderRadius: 10, border: `1.5px solid #94a3b8`, color: '#6b7280', background: 'transparent', cursor: 'pointer' }}
+            onMouseEnter={e => (e.target.style.borderColor = P)}
+            onMouseLeave={e => (e.target.style.borderColor = '#94a3b8')}
+          >
+            Recipient Login
+          </button>
           <button
             onClick={onOnboardOpen}
             style={{ fontSize: 13, fontWeight: 600, padding: '8px 18px', borderRadius: 10, border: `1.5px solid ${P}`, color: P, background: 'transparent', cursor: 'pointer' }}

@@ -1,0 +1,13 @@
+export const selectCertificates = (state) => state.recipientCertificates.certificates;
+export const selectCertificatesTotal = (state) => state.recipientCertificates.total;
+export const selectCertificatesPage = (state) => state.recipientCertificates.page;
+export const selectCertificatesLimit = (state) => state.recipientCertificates.limit;
+export const selectCertificatesSearch = (state) => state.recipientCertificates.search;
+export const selectCertificatesStatusFilter = (state) => state.recipientCertificates.statusFilter;
+export const selectCertificatesLoading = (state) => state.recipientCertificates.loading;
+export const selectCertificatesError = (state) => state.recipientCertificates.error;
+export const selectSelectedCert = (state) => state.recipientCertificates.selectedCert;
+export const selectSelectedCertLoading = (state) => state.recipientCertificates.selectedCertLoading;
+export const selectSelectedCertError = (state) => state.recipientCertificates.selectedCertError;
+export const selectVerificationHistory = (state) => state.recipientCertificates.verificationHistory;
+export const selectVerificationHistoryLoading = (state) => state.recipientCertificates.verificationHistoryLoading;
