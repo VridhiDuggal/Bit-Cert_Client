@@ -12,11 +12,25 @@ export function getRecipientDashboardStats(token) {
   return request('/api/recipient/dashboard/stats', { token });
 }
 
-export function getRecipientCertificates(token, { page = 1, limit = 10, search = '', status = '' } = {}) {
+export function getRecipientCertificates(token, { page = 1, limit = 10, search = '', status = '', org_id = '' } = {}) {
   const params = new URLSearchParams({ page, limit });
   if (search) params.set('search', search);
   if (status) params.set('status', status);
+  if (org_id) params.set('org_id', org_id);
   return request(`/api/recipient/certificates?${params}`, { token });
+}
+
+export function getRecipientOrgs(token) {
+  return request('/api/recipient/orgs', { token });
+}
+
+export async function downloadCertificate(token, id) {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
+  const res = await fetch(`${API_BASE_URL}/api/recipient/certificate/${id}/download`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Download failed.');
+  return res.blob();
 }
 
 export function getRecipientCertificate(token, id) {

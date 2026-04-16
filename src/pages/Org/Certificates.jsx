@@ -38,6 +38,7 @@ import {
   fetchRecipientSearch,
 } from '../../features/orgIssue/orgIssueThunks';
 import { useToast } from '../../hooks/useToast';
+import { downloadOrgCertificate } from '../../api/org.api';
 import {
   PRIMARY, BORDER, TEXT, MUTED, SURFACE,
   SPACING, RADIUS, SHADOW, DURATION,
@@ -322,6 +323,7 @@ function DetailModal({ isOpen, onClose, cert, token, onRevokeRequest }) {
   const toast = useToast();
   const [tab, setTab] = useState('overview');
   const [copied, setCopied] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     if (!isOpen) { setTab('overview'); setCopied(false); }
@@ -335,7 +337,7 @@ function DetailModal({ isOpen, onClose, cert, token, onRevokeRequest }) {
 
   if (!isOpen || !cert) return null;
 
-  const verificationUrl = `${API_BASE}/api/verify/${cert.cert_hash}`;
+  const verificationUrl = `${window.location.origin}/verify/${cert.cert_hash}`;
 
   function copyLink() {
     navigator.clipboard.writeText(verificationUrl).then(() => {
@@ -417,8 +419,22 @@ function DetailModal({ isOpen, onClose, cert, token, onRevokeRequest }) {
                     {copied ? 'Copied!' : 'Copy Verification Link'}
                   </Button>
                   <Button variant="outline" style={{ fontSize: 13 }}
-                    onClick={() => window.open(`${API_BASE}/${cert.file_path}`, '_blank')}>
-                    <Download size={14} /> Download PDF
+                    onClick={async () => {
+                      if (downloading) return;
+                      setDownloading(true);
+                      try {
+                        const blob = await downloadOrgCertificate(token, cert.certificate_id);
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `certificate-${cert.cert_hash?.slice(0, 8)}.pdf`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                      } catch { /* silent */ } finally {
+                        setDownloading(false);
+                      }
+                    }}>
+                    <Download size={14} /> {downloading ? 'Downloading…' : 'Download PDF'}
                   </Button>
                   <Button variant="outline" style={{ fontSize: 13 }} loading={resending} onClick={handleResend}>
                     <Send size={14} /> Resend Email
@@ -745,32 +761,20 @@ export default function Certificates() {
         ]}
       />
 
-      <div style={{ display: 'flex', gap: SPACING.md, alignItems: 'center', marginBottom: SPACING.md, flexWrap: 'wrap' }}>
-        <SearchBar
-          value={search}
-          onChange={v => dispatch(setSearch(v))}
-          placeholder="Search by recipient or course…"
-          style={{ flex: 1, minWidth: 220 }}
-        />
+      <div style={{ display: 'flex', gap: SPACING.md, alignItems: 'flex-end', marginBottom: SPACING.md, flexWrap: 'nowrap' }}>
+        <div style={{ flex: 1, minWidth: 220, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <label style={{ fontSize: 11, fontWeight: 700, color: MUTED, textTransform: 'uppercase', letterSpacing: 0.6 }}>Search</label>
+          <SearchBar
+            value={search}
+            onChange={v => dispatch(setSearch(v))}
+            placeholder="Search by recipient or course…"
+            style={{ flex: 1, minWidth: 220 }}
+          />
+        </div>
         <FilterBar
           filters={FILTER_DEFS}
           values={{ status: filters.status, expiry_status: filters.expiry_status }}
           onChange={(key, value) => dispatch(setFilters({ [key]: value }))}
-          onReset={() => dispatch(resetFilters())}
-        />
-        <input
-          type="date"
-          value={filters.date_from}
-          title="From date"
-          onChange={e => dispatch(setFilters({ date_from: e.target.value }))}
-          style={{ border: `1px solid ${BORDER}`, borderRadius: RADIUS.md, padding: '8px 12px', fontSize: 13, color: TEXT }}
-        />
-        <input
-          type="date"
-          value={filters.date_to}
-          title="To date"
-          onChange={e => dispatch(setFilters({ date_to: e.target.value }))}
-          style={{ border: `1px solid ${BORDER}`, borderRadius: RADIUS.md, padding: '8px 12px', fontSize: 13, color: TEXT }}
         />
       </div>
 

@@ -10,11 +10,13 @@ import { Button } from '../../components/ui/Button';
 import {
   fetchRecipientCertificates,
   fetchCertificateDetail,
+  fetchRecipientOrgs,
 } from '../../features/recipientCertificates/recipientCertificatesThunks';
 import {
   setPage,
   setSearch,
   setStatusFilter,
+  setOrgFilter,
   clearSelectedCert,
 } from '../../features/recipientCertificates/recipientCertificatesSlice';
 import {
@@ -27,12 +29,11 @@ import {
   selectCertificatesLoading,
   selectSelectedCert,
 } from '../../features/recipientCertificates/recipientCertificatesSelectors';
+import { selectRecipientToken } from '../../store/recipientAuth/recipientAuthSelectors';
 import { useToast } from '../../hooks/useToast';
 import { copyToClipboard } from '../../utils/clipboard';
 import RecipientCertificateDetail from './RecipientCertificateDetail';
 import * as T from '../../styles/tokens';
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
 
 const STATUS_TABS = [
   { label: 'All', value: '' },
@@ -72,6 +73,7 @@ function SkeletonCard() {
 export default function RecipientCertificates() {
   const dispatch = useDispatch();
   const toast = useToast();
+  const token = useSelector(selectRecipientToken);
   const certificates = useSelector(selectCertificates);
   const total = useSelector(selectCertificatesTotal);
   const page = useSelector(selectCertificatesPage);
@@ -80,13 +82,19 @@ export default function RecipientCertificates() {
   const statusFilter = useSelector(selectCertificatesStatusFilter);
   const loading = useSelector(selectCertificatesLoading);
   const selectedCert = useSelector(selectSelectedCert);
+  const orgList = useSelector(state => state.recipientCertificates.orgList);
+  const orgFilter = useSelector(state => state.recipientCertificates.orgFilter);
 
   const [localSearch, setLocalSearch] = useState(search);
   const debounceRef = useRef(null);
 
   useEffect(() => {
+    dispatch(fetchRecipientOrgs());
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(fetchRecipientCertificates());
-  }, [dispatch, page, statusFilter]);
+  }, [dispatch, page, statusFilter, orgFilter]);
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -109,14 +117,12 @@ export default function RecipientCertificates() {
     copyToClipboard(`${window.location.origin}/verify/${cert.cert_hash}`, () => toast.success('Verification link copied!'));
   }
 
-  function handleDownload(cert) {
-    if (cert.file_path) {
-      window.open(`${API_BASE}/${cert.file_path}`, '_blank');
-    }
-  }
-
   function handleStatusTab(value) {
     dispatch(setStatusFilter(value));
+  }
+
+  function handleOrgTab(value) {
+    dispatch(setOrgFilter(value));
   }
 
   const totalPages = Math.ceil(total / limit);
@@ -131,6 +137,30 @@ export default function RecipientCertificates() {
           100% { background-position: -200% 0; }
         }
       `}</style>
+
+      {orgList.length > 1 && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: T.SPACING.sm, flexWrap: 'wrap' }}>
+          {[{ label: 'All Orgs', value: '' }, ...orgList.map(o => ({ label: o.org_name, value: o.org_id }))].map(tab => (
+            <button
+              key={tab.value}
+              onClick={() => handleOrgTab(tab.value)}
+              style={{
+                padding: '6px 14px',
+                fontSize: 12,
+                fontWeight: 500,
+                borderRadius: T.RADIUS.full,
+                border: orgFilter === tab.value ? 'none' : `1px solid ${T.BORDER}`,
+                backgroundColor: orgFilter === tab.value ? T.PRIMARY : T.WHITE,
+                color: orgFilter === tab.value ? T.WHITE : T.MUTED,
+                cursor: 'pointer',
+                transition: `all ${T.DURATION.fast} ease`,
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: T.SPACING.md }}>
         {STATUS_TABS.map(tab => (
@@ -182,7 +212,6 @@ export default function RecipientCertificates() {
               onView={handleView}
               onVerify={handleVerify}
               onShare={handleShare}
-              onDownload={handleDownload}
             />
           ))}
         </div>
@@ -214,7 +243,7 @@ export default function RecipientCertificates() {
         </div>
       )}
 
-      <Modal isOpen={!!selectedCert} size="lg" onClose={() => dispatch(clearSelectedCert())}>
+      <Modal isOpen={!!selectedCert} size="xl" title="Certificate Details" onClose={() => dispatch(clearSelectedCert())}>
         <RecipientCertificateDetail
           certificateId={selectedCert?.certificate_id}
           asModal

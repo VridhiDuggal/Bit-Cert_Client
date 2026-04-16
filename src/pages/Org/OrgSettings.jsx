@@ -69,7 +69,11 @@ const TABS = [
 
 function TabNav({ active, onChange }) {
   return (
-    <div style={{ display: 'flex', borderBottom: `1px solid ${BORDER}`, marginBottom: SPACING.lg }}>
+    <div style={{
+      display: 'flex', gap: 4, marginBottom: SPACING.lg,
+      backgroundColor: BG_SUBTLE, borderRadius: RADIUS.md,
+      padding: 4, border: `1px solid ${BORDER}`,
+    }}>
       {TABS.map(({ key, label, icon: Icon }) => {
         const isActive = active === key;
         return (
@@ -77,22 +81,16 @@ function TabNav({ active, onChange }) {
             key={key}
             onClick={() => onChange(key)}
             style={{
-              padding: '12px 20px',
-              fontSize: 14,
-              fontWeight: isActive ? 700 : 500,
-              color: isActive ? PRIMARY : MUTED,
-              background: 'none',
-              border: 'none',
-              borderBottom: `2px solid ${isActive ? PRIMARY : 'transparent'}`,
-              marginBottom: -1,
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: SPACING.xs,
-              transition: `color ${DURATION.fast}`,
+              flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
+              padding: '8px 12px', fontSize: 13, fontWeight: isActive ? 600 : 500,
+              borderRadius: RADIUS.sm, border: 'none', cursor: 'pointer',
+              backgroundColor: isActive ? WHITE : 'transparent',
+              color: isActive ? TEXT : MUTED,
+              boxShadow: isActive ? SHADOW.sm : 'none',
+              transition: `all ${DURATION.fast} ease`,
             }}
           >
-            <Icon size={15} />
+            <Icon size={14} />
             {label}
           </button>
         );
@@ -303,11 +301,11 @@ function SecurityTab({ token }) {
     <>
       <SectionCard title="Change Password" subtitle="Update your organisation account password.">
         <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: SPACING.md }}>
-          <Input id="currentPassword" label="Current Password" type="password" placeholder="Enter current password"
+          <Input id="currentPassword" label="Current Password" type="password" showToggle placeholder="Enter current password"
             value={form.currentPassword} onChange={e => setForm(f => ({ ...f, currentPassword: e.target.value }))}
             error={errors.currentPassword} />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-            <Input id="newPassword" label="New Password" type="password" placeholder="Minimum 10 characters"
+            <Input id="newPassword" label="New Password" type="password" showToggle placeholder="Minimum 10 characters"
               value={form.newPassword} onChange={e => setForm(f => ({ ...f, newPassword: e.target.value }))}
               error={errors.newPassword} />
             {form.newPassword && !errors.newPassword && strength && (
@@ -319,7 +317,7 @@ function SecurityTab({ token }) {
               </div>
             )}
           </div>
-          <Input id="confirmPassword" label="Confirm New Password" type="password" placeholder="Repeat new password"
+          <Input id="confirmPassword" label="Confirm New Password" type="password" showToggle placeholder="Repeat new password"
             value={form.confirmPassword} onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))}
             error={errors.confirmPassword} />
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -473,7 +471,7 @@ export default function OrgSettings() {
   return (
     <OrgLayout title="Settings" subtitle="Manage your account settings">
       <PageTransition>
-      <div style={{ maxWidth: 660 }}>
+      <div>
         <TabNav active={tab} onChange={handleTabChange} />
         {tab === 'profile'       && <ProfileTab       token={token} />}
         {tab === 'security'      && <SecurityTab      token={token} />}

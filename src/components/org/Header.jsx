@@ -25,8 +25,13 @@ export function Header({ title, subtitle }) {
       justifyContent: 'space-between',
       borderBottom: `1px solid ${BORDER}`,
       padding: '0 32px',
-      backgroundColor: '#fff',
+      backgroundColor: 'rgba(255,255,255,0.85)',
+      backdropFilter: 'blur(8px)',
       flexShrink: 0,
+      position: 'sticky',
+      top: 0,
+      zIndex: 10,
+      boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
     }}>
       <div>
         <h1 style={{ fontSize: 18, fontWeight: 800, color: TEXT, margin: 0, lineHeight: 1.2 }}>{title}</h1>
@@ -41,15 +46,18 @@ export function Header({ title, subtitle }) {
         style={{
           position: 'relative',
           background: 'none',
-          border: 'none',
+          border: `1px solid ${BORDER}`,
           padding: 8,
-          borderRadius: 8,
+          borderRadius: 10,
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           color: MUTED,
+          transition: 'background 0.15s, color 0.15s',
         }}
+        onMouseEnter={e => { e.currentTarget.style.backgroundColor = '#f0f5f0'; e.currentTarget.style.color = '#1a202c'; }}
+        onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = MUTED; }}
       >
         <Bell size={20} />
         {unreadCount > 0 && (

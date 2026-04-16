@@ -72,3 +72,12 @@ export function getUnreadCount(token) {
   return request('/api/org/notifications/unread-count', { token });
 }
 
+export async function downloadOrgCertificate(token, id) {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000';
+  const res = await fetch(`${API_BASE_URL}/api/org/certificate/${id}/download`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  if (!res.ok) throw new Error('Download failed.');
+  return res.blob();
+}
+

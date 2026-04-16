@@ -15,6 +15,7 @@ const OrgSettings              = lazy(() => import('../pages/Org/OrgSettings'));
 const OrgVerify                = lazy(() => import('../pages/Org/OrgVerify'));
 const AcceptInvite             = lazy(() => import('../pages/AcceptInvite'));
 const VerifyPage               = lazy(() => import('../pages/VerifyPage'));
+const VerifyLandingPage        = lazy(() => import('../pages/VerifyLandingPage'));
 const RecipientDashboard       = lazy(() => import('../pages/Recipient/RecipientDashboard'));
 const RecipientCertificates    = lazy(() => import('../pages/Recipient/RecipientCertificates'));
 const RecipientCertificateDetail = lazy(() => import('../pages/Recipient/RecipientCertificateDetail'));
@@ -72,6 +73,10 @@ export function AppRouter() {
         <Route
           path="/accept-invite"
           element={<Suspense fallback={<PageLoader />}><AcceptInvite /></Suspense>}
+        />
+        <Route
+          path="/verify"
+          element={<Suspense fallback={<PageLoader />}><VerifyLandingPage /></Suspense>}
         />
         <Route
           path="/verify/:cert_hash"

@@ -7,10 +7,15 @@ import * as T from '../../styles/tokens';
 export function CertificateCard({ certificate, onView, onShare, onDownload, onVerify }) {
   const [hovered, setHovered] = useState(false);
   const isRevoked = certificate.is_revoked;
+  const isExpired = certificate.is_expired;
 
   const issueDate = certificate.issue_date
     ? new Date(certificate.issue_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
     : '—';
+
+  const expiryDate = certificate.expiry_date
+    ? new Date(certificate.expiry_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+    : null;
 
   return (
     <div
@@ -31,8 +36,8 @@ export function CertificateCard({ certificate, onView, onShare, onDownload, onVe
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <Badge variant={isRevoked ? 'danger' : 'success'} size="sm">
-          {isRevoked ? 'Revoked' : 'Active'}
+        <Badge variant={isRevoked ? 'danger' : isExpired ? 'warning' : 'success'} size="sm">
+          {isRevoked ? 'Revoked' : isExpired ? 'Expired' : 'Active'}
         </Badge>
       </div>
 
@@ -53,13 +58,20 @@ export function CertificateCard({ certificate, onView, onShare, onDownload, onVe
         <div style={{ fontSize: 12, color: T.TEXT_MUTED }}>
           Issued on {issueDate}
         </div>
+        {expiryDate && (
+          <div style={{ fontSize: 12, color: isExpired ? T.DANGER : T.MUTED }}>
+            {isExpired ? 'Expired' : 'Expires'}: {expiryDate}
+          </div>
+        )}
       </div>
 
       <div style={{ display: 'flex', gap: 6, paddingTop: 4 }}>
         <IconButton icon={<Eye size={15} />} tooltip="View Details" onClick={() => onView(certificate)} />
         <IconButton icon={<ExternalLink size={15} />} tooltip="Verify Certificate" onClick={() => onVerify(certificate)} />
         <IconButton icon={<Share2 size={15} />} tooltip="Copy Verification Link" onClick={() => onShare(certificate)} />
-        <IconButton icon={<Download size={15} />} tooltip="Download Certificate" onClick={() => onDownload(certificate)} />
+        {onDownload && (
+          <IconButton icon={<Download size={15} />} tooltip="Download Certificate" onClick={() => onDownload(certificate)} />
+        )}
       </div>
     </div>
   );

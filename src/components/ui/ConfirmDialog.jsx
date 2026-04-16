@@ -55,6 +55,7 @@ export function ConfirmDialog({
             <Input
               label="Enter your password to confirm"
               type="password"
+              showToggle
               value={password}
               onChange={e => onPasswordChange(e.target.value)}
               error={passwordError}

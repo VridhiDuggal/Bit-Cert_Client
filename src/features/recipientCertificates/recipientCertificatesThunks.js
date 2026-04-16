@@ -3,6 +3,7 @@ import {
   getRecipientCertificates,
   getRecipientCertificate,
   getVerificationHistory,
+  getRecipientOrgs,
 } from '../../api/recipient.api';
 import { selectRecipientToken } from '../../store/recipientAuth/recipientAuthSelectors';
 
@@ -11,9 +12,22 @@ export const fetchRecipientCertificates = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const token = selectRecipientToken(getState());
-      const { page, limit, search, statusFilter } = getState().recipientCertificates;
-      const data = await getRecipientCertificates(token, { page, limit, search, status: statusFilter });
+      const { page, limit, search, statusFilter, orgFilter } = getState().recipientCertificates;
+      const data = await getRecipientCertificates(token, { page, limit, search, status: statusFilter, org_id: orgFilter });
       return data;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+export const fetchRecipientOrgs = createAsyncThunk(
+  'recipientCertificates/fetchOrgs',
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = selectRecipientToken(getState());
+      const data = await getRecipientOrgs(token);
+      return data.orgs ?? [];
     } catch (err) {
       return rejectWithValue(err.message);
     }

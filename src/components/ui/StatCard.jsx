@@ -45,7 +45,8 @@ const TREND_ARROWS = { up: '↑', down: '↓', neutral: '→' };
 
 export function StatCard({ title, value, icon: Icon, trend, color = '#3B82F6', loading = false, style = {} }) {
   const [hovered, setHovered] = useState(false);
-  const displayValue = useCountUp(typeof value === 'number' ? value : 0, !loading);
+  const isLoading = loading || value === null;
+  const displayValue = useCountUp(typeof value === 'number' ? value : 0, !isLoading);
 
   return (
     <div
@@ -65,7 +66,7 @@ export function StatCard({ title, value, icon: Icon, trend, color = '#3B82F6', l
         ...style,
       }}
     >
-      {loading && (
+      {isLoading && (
         <>
           <div style={{ position: 'absolute', inset: 0, backgroundColor: WHITE, zIndex: 1 }} />
           <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', zIndex: 2 }}>
@@ -81,9 +82,9 @@ export function StatCard({ title, value, icon: Icon, trend, color = '#3B82F6', l
             {title}
           </p>
           <p style={{ fontSize: 28, fontWeight: 800, color: TEXT, margin: `${SPACING.xs}px 0 0`, lineHeight: 1 }}>
-            {loading ? <span style={{ display: 'inline-block', width: 64, height: 28, backgroundColor: '#e5e7eb', borderRadius: RADIUS.sm }} /> : displayValue}
+            {isLoading ? <span style={{ display: 'inline-block', width: 64, height: 28, backgroundColor: '#e5e7eb', borderRadius: RADIUS.sm }} /> : displayValue}
           </p>
-          {trend && !loading && (
+          {trend && !isLoading && (
             <p style={{ fontSize: 12, fontWeight: 600, color: TREND_COLORS[trend.direction] ?? MUTED, margin: `${SPACING.xs}px 0 0` }}>
               {TREND_ARROWS[trend.direction]} {trend.value}
             </p>

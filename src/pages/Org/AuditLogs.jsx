@@ -109,7 +109,7 @@ export default function AuditLogs() {
   const isEmpty  = !loading && logs.length === 0;
 
   return (
-    <OrgLayout title="Audit Logs" subtitle="Immutable record of all organisation activity.">
+    <OrgLayout>
       <PageTransition>
       <PageHeader
         title="Audit Logs"

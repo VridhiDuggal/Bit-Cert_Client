@@ -85,10 +85,10 @@ export default function VerifyPage() {
   }, [cert_hash]);
 
   const bannerConfig = {
-    valid:     { bg: '#f0fdf4', border: '#86efac', icon: <ShieldCheck size={22} color={PRIMARY} strokeWidth={2.5} />, label: 'Certificate Verified', sub: 'This certificate is authentic and has been verified on the blockchain.' },
-    revoked:   { bg: '#fef2f2', border: '#fca5a5', icon: <ShieldX size={22} color={DANGER} strokeWidth={2.5} />, label: 'Certificate Revoked', sub: 'This certificate has been revoked and is no longer valid.' },
-    not_found: { bg: '#fffbeb', border: '#fde68a', icon: <ShieldAlert size={22} color={WARNING} strokeWidth={2.5} />, label: 'Certificate Not Found', sub: 'No certificate was found matching this hash.' },
-    error:     { bg: '#fffbeb', border: '#fde68a', icon: <ShieldAlert size={22} color={WARNING} strokeWidth={2.5} />, label: 'Verification Error', sub: 'Unable to verify this certificate right now. Please try again.' },
+    valid:     { bg: '#f0fdf4', border: '#86efac', icon: <ShieldCheck size={26} color={PRIMARY} strokeWidth={2.5} />, label: 'Certificate Verified', sub: 'This certificate is authentic and has been verified on the blockchain.' },
+    revoked:   { bg: '#fef2f2', border: '#fca5a5', icon: <ShieldX size={26} color={DANGER} strokeWidth={2.5} />, label: 'Certificate Revoked', sub: 'This certificate has been revoked and is no longer valid.' },
+    not_found: { bg: '#fffbeb', border: '#fde68a', icon: <ShieldAlert size={26} color={WARNING} strokeWidth={2.5} />, label: 'Certificate Not Found', sub: 'No certificate was found matching this hash.' },
+    error:     { bg: '#fffbeb', border: '#fde68a', icon: <ShieldAlert size={26} color={WARNING} strokeWidth={2.5} />, label: 'Verification Error', sub: 'Unable to verify this certificate right now. Please try again.' },
   };
 
   const cfg = bannerConfig[status];
@@ -96,26 +96,36 @@ export default function VerifyPage() {
 
   return (
     <div style={{
-      minHeight: '100vh', backgroundColor: SURFACE,
+      minHeight: '100vh', background: 'linear-gradient(160deg, #eef4ee 0%, #f3f7f3 30%, #f8faf8 100%)',
       fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif',
     }}>
       {/* Top bar */}
       <header style={{
         backgroundColor: WHITE, borderBottom: `1px solid ${BORDER}`,
-        boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-        padding: '0 32px', height: 56,
+        boxShadow: '0 1px 6px rgba(0,0,0,0.05)',
+        padding: '0 32px', height: 60,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       }}>
-        <span style={{ fontSize: 18, fontWeight: 800, color: PRIMARY, letterSpacing: '-0.4px' }}>Bit-Cert</span>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{
+            width: 30, height: 30, borderRadius: 8,
+            background: `linear-gradient(135deg, ${PRIMARY} 0%, #4a7048 100%)`,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: `0 2px 8px ${PRIMARY}40`,
+          }}>
+            <ShieldCheck size={16} color={WHITE} strokeWidth={2.5} />
+          </div>
+          <span style={{ fontSize: 16, fontWeight: 800, color: PRIMARY, letterSpacing: '-0.4px' }}>Bit-Cert</span>
+        </div>
         <button
           onClick={() => navigate('/')}
           style={{
             display: 'flex', alignItems: 'center', gap: 6,
-            background: 'none', border: 'none', cursor: 'pointer',
-            fontSize: 13, fontWeight: 500, color: MUTED, padding: '6px 10px',
-            borderRadius: RADIUS.sm,
+            background: 'none', border: `1px solid ${BORDER}`, cursor: 'pointer',
+            fontSize: 13, fontWeight: 500, color: MUTED, padding: '6px 12px',
+            borderRadius: RADIUS.md, transition: 'color 0.15s, background 0.15s',
           }}
-          onMouseEnter={e => { e.currentTarget.style.color = TEXT; e.currentTarget.style.backgroundColor = '#f3f4f6'; }}
+          onMouseEnter={e => { e.currentTarget.style.color = TEXT; e.currentTarget.style.backgroundColor = '#f0f5f0'; }}
           onMouseLeave={e => { e.currentTarget.style.color = MUTED; e.currentTarget.style.backgroundColor = 'transparent'; }}
         >
           <ArrowLeft size={14} /> Back to Home
@@ -142,14 +152,22 @@ export default function VerifyPage() {
               backgroundColor: cfg.bg,
               border: `1.5px solid ${cfg.border}`,
               borderRadius: RADIUS.lg,
-              padding: `${SPACING.md}px ${SPACING.lg}px`,
-              display: 'flex', alignItems: 'flex-start', gap: 14,
+              padding: `${SPACING.lg}px`,
+              display: 'flex', alignItems: 'center', gap: 16,
               marginBottom: SPACING.lg,
+              boxShadow: `0 4px 16px ${cfg.border}60`,
             }}>
-              <div style={{ flexShrink: 0, marginTop: 2 }}>{cfg.icon}</div>
+              <div style={{
+                flexShrink: 0,
+                width: 48, height: 48,
+                borderRadius: RADIUS.md,
+                backgroundColor: cfg.bg,
+                border: `1.5px solid ${cfg.border}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>{cfg.icon}</div>
               <div>
-                <p style={{ margin: 0, fontWeight: 700, fontSize: 15, color: TEXT }}>{cfg.label}</p>
-                <p style={{ margin: '3px 0 0', fontSize: 13, color: MUTED }}>{cfg.sub}</p>
+                <p style={{ margin: 0, fontWeight: 800, fontSize: 17, color: TEXT, letterSpacing: '-0.2px' }}>{cfg.label}</p>
+                <p style={{ margin: '4px 0 0', fontSize: 14, color: MUTED, lineHeight: 1.5 }}>{cfg.sub}</p>
               </div>
             </div>
 

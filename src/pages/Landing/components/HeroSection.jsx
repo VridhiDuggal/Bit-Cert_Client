@@ -14,7 +14,7 @@ const PL = '#eef4ee';
 
 export function HeroSection({ onLoginOpen, onOnboardOpen }) {
   return (
-    <section style={{ backgroundColor: '#fff', padding: '80px 24px 96px', position: 'relative', overflow: 'hidden' }}>
+    <section style={{ backgroundColor: 'transparent', padding: '80px 24px 96px', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'absolute', top: -80, right: -80, width: 400, height: 400, borderRadius: '50%', backgroundColor: P, opacity: 0.04, pointerEvents: 'none' }} />
       <div style={{ position: 'absolute', bottom: -40, left: -60, width: 280, height: 280, borderRadius: '50%', backgroundColor: P, opacity: 0.04, pointerEvents: 'none' }} />
 

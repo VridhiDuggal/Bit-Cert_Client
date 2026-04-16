@@ -155,7 +155,7 @@ export default function RecipientDashboard() {
             <StatCard
               key={key}
               title={title}
-              value={stats[key] ?? 0}
+              value={stats[key]}
               icon={icon}
               color={color}
               loading={statsLoading}

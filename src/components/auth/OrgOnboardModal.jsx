@@ -121,6 +121,7 @@ export function OrgOnboardModal({ isOpen, onClose, onSuccessOpenLogin, onSwitchT
           name="password"
           label="Password"
           type="password"
+          showToggle
           value={fields.password}
           onChange={handleChange}
           onBlur={handleBlur('password')}

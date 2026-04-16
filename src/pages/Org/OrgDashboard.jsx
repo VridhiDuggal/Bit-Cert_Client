@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -7,28 +7,18 @@ import {
 } from 'lucide-react';
 import { OrgLayout } from '../../components/org/OrgLayout';
 import { PageTransition } from '../../components/shared/PageTransition';
-import { Table } from '../../components/ui/Table';
 import { PageHeader } from '../../components/ui/PageHeader';
 import { StatCard } from '../../components/ui/StatCard';
 import { EmptyState } from '../../components/ui/EmptyState';
-import { SearchBar } from '../../components/ui/SearchBar';
 import { selectToken, selectOrg } from '../../store/auth/authSelectors';
 import {
   fetchDashboardStats,
-  fetchDashboardTable,
   fetchDashboardActivity,
   fetchDashboardChart,
 } from '../../features/orgDashboard/orgDashboardThunks';
-import { setPage, setSearch } from '../../features/orgDashboard/orgDashboardSlice';
 import {
   selectDashboardStats,
-  selectDashboardTableData,
-  selectDashboardTotal,
-  selectDashboardPage,
-  selectDashboardLimit,
-  selectDashboardSearch,
   selectDashboardStatsLoading,
-  selectDashboardTableLoading,
   selectDashboardActivity,
   selectDashboardActivityLoading,
   selectDashboardChartData,
@@ -202,32 +192,6 @@ function BarChart({ data, loading }) {
   );
 }
 
-const TABLE_COLUMNS = [
-  { key: 'recipient_name', label: 'Recipient' },
-  { key: 'course',         label: 'Course'    },
-  {
-    key: 'issued_at',
-    label: 'Issued',
-    render: (row) => row.issued_at ? new Date(row.issued_at).toLocaleDateString() : '—',
-  },
-  {
-    key: 'is_revoked',
-    label: 'Status',
-    render: (row) => (
-      <span style={{
-        display: 'inline-block',
-        padding: '3px 10px',
-        borderRadius: 20,
-        fontSize: 11,
-        fontWeight: 700,
-        backgroundColor: row.is_revoked ? '#fef2f2' : '#f0fdf4',
-        color:           row.is_revoked ? '#991b1b'  : '#166534',
-      }}>
-        {row.is_revoked ? 'Revoked' : 'Active'}
-      </span>
-    ),
-  },
-];
 
 export default function OrgDashboard() {
   const dispatch   = useDispatch();
@@ -237,34 +201,23 @@ export default function OrgDashboard() {
 
   const stats              = useSelector(selectDashboardStats);
   const statsLoading       = useSelector(selectDashboardStatsLoading);
-  const tableData          = useSelector(selectDashboardTableData);
-  const tableLoading       = useSelector(selectDashboardTableLoading);
-  const total              = useSelector(selectDashboardTotal);
-  const page               = useSelector(selectDashboardPage);
-  const limit              = useSelector(selectDashboardLimit);
-  const search             = useSelector(selectDashboardSearch);
   const activity           = useSelector(selectDashboardActivity);
   const activityLoading    = useSelector(selectDashboardActivityLoading);
   const chartData          = useSelector(selectDashboardChartData);
   const chartLoading       = useSelector(selectDashboardChartLoading);
 
-  const loadTable = useCallback(() => {
-    dispatch(fetchDashboardTable({ token, page, limit, search }));
-  }, [dispatch, token, page, limit, search]);
-
   useEffect(() => {
     dispatch(fetchDashboardStats(token));
     dispatch(fetchDashboardActivity(token));
     dispatch(fetchDashboardChart(token));
+
+    function handleFocus() {
+      dispatch(fetchDashboardStats(token));
+      dispatch(fetchDashboardActivity(token));
+    }
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
   }, [dispatch, token]);
-
-  useEffect(() => {
-    loadTable();
-  }, [loadTable]);
-
-  const handlePageChange = (newPage) => dispatch(setPage(newPage));
-  const handleSearch     = (val) => dispatch(setSearch(val));
-  const handleClearSearch = () => dispatch(setSearch(''));
 
   const STAT_CARDS = [
     { key: 'total_certificates',   title: 'Total Certs',    icon: FileText,    color: '#3B82F6' },
@@ -301,7 +254,7 @@ export default function OrgDashboard() {
             <StatCard
               key={key}
               title={title}
-              value={stats[key] ?? 0}
+              value={stats[key]}
               icon={icon}
               color={color}
               loading={statsLoading}
@@ -341,7 +294,7 @@ export default function OrgDashboard() {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '3fr 2fr',
+            gridTemplateColumns: '1fr 1fr',
             gap: SPACING.lg,
             marginBottom: SPACING.xl,
           }}
@@ -370,6 +323,7 @@ export default function OrgDashboard() {
               boxShadow: SHADOW.sm,
               display: 'flex',
               flexDirection: 'column',
+              maxHeight: 280,
               overflow: 'hidden',
             }}
           >
@@ -391,49 +345,6 @@ export default function OrgDashboard() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div
-          style={{
-            backgroundColor: '#fff',
-            borderRadius: RADIUS.lg,
-            border: `1px solid ${BORDER}`,
-            padding: SPACING.lg,
-            boxShadow: SHADOW.sm,
-          }}
-        >
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginBottom: SPACING.md,
-              gap: SPACING.md,
-              flexWrap: 'wrap',
-            }}
-          >
-            <p style={{ fontSize: 13, fontWeight: 700, color: TEXT, margin: 0 }}>
-              Recent Certificates
-            </p>
-            <div style={{ width: 260 }}>
-              <SearchBar
-                value={search}
-                onChange={handleSearch}
-                onClear={handleClearSearch}
-                placeholder="Search certificates…"
-              />
-            </div>
-          </div>
-          <Table
-            columns={TABLE_COLUMNS}
-            data={tableData}
-            total={total}
-            page={page}
-            limit={limit}
-            onPageChange={handlePageChange}
-            loading={tableLoading}
-            emptyMessage="No certificates found."
-          />
         </div>
       </PageTransition>
     </OrgLayout>

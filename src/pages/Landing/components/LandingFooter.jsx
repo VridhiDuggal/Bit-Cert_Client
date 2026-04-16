@@ -50,6 +50,21 @@ export default function LandingFooter() {
             <span style={{ fontSize: 12, color: '#6b7280' }}>Cryptographically secured · Decentralised trust</span>
           </div>
         </div>
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
+          <p style={{ fontSize: 12, color: '#6b7280', margin: 0 }}>
+            Built by{' '}
+            <a
+              href="https://www.linkedin.com/in/vridhi-duggal-060682275/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: '#60a5fa', textDecoration: 'none' }}
+              onMouseEnter={e => (e.target.style.textDecoration = 'underline')}
+              onMouseLeave={e => (e.target.style.textDecoration = 'none')}
+            >
+              Vridhi Duggal
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -154,7 +154,7 @@ export default function OrgVerify() {
     result.issuer.org_name === org.org_name;
 
   return (
-    <OrgLayout title="Verify Certificate" subtitle="Check the authenticity of any certificate">
+    <OrgLayout>
       <PageTransition>
         <PageHeader title="Verify Certificate" subtitle="Check the authenticity of any certificate" />
 

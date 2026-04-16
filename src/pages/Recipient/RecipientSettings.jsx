@@ -205,11 +205,11 @@ function SecurityTab() {
         Use a strong password that you don't use anywhere else.
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: T.SPACING.md }}>
-        <Input id="currentPassword" label="Current Password" type="password" value={form.currentPassword}
+        <Input id="currentPassword" label="Current Password" type="password" showToggle value={form.currentPassword}
           onChange={e => setForm(f => ({ ...f, currentPassword: e.target.value }))} error={errors.currentPassword} />
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-          <Input id="newPassword" label="New Password" type="password" value={form.newPassword}
+          <Input id="newPassword" label="New Password" type="password" showToggle value={form.newPassword}
             onChange={e => setForm(f => ({ ...f, newPassword: e.target.value }))} error={errors.newPassword} />
           {form.newPassword && strength && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -221,7 +221,7 @@ function SecurityTab() {
           )}
         </div>
 
-        <Input id="confirmPassword" label="Confirm New Password" type="password" value={form.confirmPassword}
+        <Input id="confirmPassword" label="Confirm New Password" type="password" showToggle value={form.confirmPassword}
           onChange={e => setForm(f => ({ ...f, confirmPassword: e.target.value }))} error={errors.confirmPassword} />
 
         {passwordError && (
@@ -261,7 +261,7 @@ function AccountTab() {
         Read-only details about your account.
       </div>
 
-      {profileLoading ? (
+      {(!profile || profileLoading) ? (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {[80, 60, 70, 55].map((w, i) => (
             <div key={i} style={{
@@ -280,8 +280,12 @@ function AccountTab() {
           />
           <AccountRow
             icon={<Building2 size={14} color={T.PRIMARY} />}
-            label="Invited by"
-            value={profile?.invited_by_org_name ?? '—'}
+            label="Organizations Associated With"
+            value={
+              profile?.organisations?.length > 0
+                ? profile.organisations.map(o => o.org_name).join(', ')
+                : (profile?.invited_by_org_name ?? '—')
+            }
           />
           <AccountRow
             icon={<Shield size={14} color={T.PRIMARY} />}
@@ -315,7 +319,7 @@ export default function RecipientSettings() {
         @keyframes shimmer  { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
       `}</style>
 
-      <div style={{ maxWidth: 640 }}>
+      <div>
         {/* Tab bar */}
         <div style={{
           display: 'flex', gap: 4, marginBottom: T.SPACING.lg,

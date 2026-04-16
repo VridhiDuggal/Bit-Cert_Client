@@ -90,6 +90,7 @@ export function OrgLoginModal({ isOpen, onClose, onSwitchToOnboard }) {
           name="password"
           label="Password"
           type="password"
+          showToggle
           value={fields.password}
           onChange={handleChange}
           error={fieldErrors.password}

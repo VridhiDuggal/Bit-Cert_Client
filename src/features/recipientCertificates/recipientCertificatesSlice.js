@@ -3,6 +3,7 @@ import {
   fetchRecipientCertificates,
   fetchCertificateDetail,
   fetchVerificationHistory,
+  fetchRecipientOrgs,
 } from './recipientCertificatesThunks';
 
 const initialState = {
@@ -12,6 +13,9 @@ const initialState = {
   limit: 12,
   search: '',
   statusFilter: '',
+  orgFilter: '',
+  orgList: [],
+  orgListLoading: false,
   loading: false,
   error: null,
   selectedCert: null,
@@ -28,6 +32,7 @@ const recipientCertificatesSlice = createSlice({
     setPage(state, action) { state.page = action.payload; },
     setSearch(state, action) { state.search = action.payload; state.page = 1; },
     setStatusFilter(state, action) { state.statusFilter = action.payload; state.page = 1; },
+    setOrgFilter(state, action) { state.orgFilter = action.payload; state.page = 1; },
     clearSelectedCert(state) {
       state.selectedCert = null;
       state.selectedCertError = null;
@@ -59,8 +64,16 @@ const recipientCertificatesSlice = createSlice({
         state.verificationHistory = action.payload;
       })
       .addCase(fetchVerificationHistory.rejected, (state) => { state.verificationHistoryLoading = false; });
+
+    builder
+      .addCase(fetchRecipientOrgs.pending, (state) => { state.orgListLoading = true; })
+      .addCase(fetchRecipientOrgs.fulfilled, (state, action) => {
+        state.orgListLoading = false;
+        state.orgList = action.payload ?? [];
+      })
+      .addCase(fetchRecipientOrgs.rejected, (state) => { state.orgListLoading = false; });
   },
 });
 
-export const { setPage, setSearch, setStatusFilter, clearSelectedCert } = recipientCertificatesSlice.actions;
+export const { setPage, setSearch, setStatusFilter, setOrgFilter, clearSelectedCert } = recipientCertificatesSlice.actions;
 export default recipientCertificatesSlice.reducer;

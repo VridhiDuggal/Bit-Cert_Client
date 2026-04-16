@@ -27,9 +27,9 @@ export default function AcceptInvite() {
   const navigate = useNavigate();
   const token = searchParams.get('token') ?? '';
 
-  // 'loading' | 'form' | 'submitting' | 'success' | 'error'
   const [step, setStep]               = useState('loading');
   const [preview, setPreview]         = useState(null);
+  const [mode, setMode]               = useState('new');
   const [name, setName]               = useState('');
   const [password, setPassword]       = useState('');
   const [confirm, setConfirm]         = useState('');
@@ -41,7 +41,11 @@ export default function AcceptInvite() {
     setVisible(true);
     if (!token) { setStep('error'); setServerError('Missing token. Please use the link from your invite email.'); return; }
     previewInvite(token)
-      .then(data => { setPreview(data); setStep('form'); })
+      .then(data => {
+        setPreview(data);
+        setMode(data.accountStatus ?? 'new');
+        setStep('form');
+      })
       .catch(err => { setServerError(err.message ?? 'Invalid or expired invite link.'); setStep('error'); });
   }, [token]);
 
@@ -49,9 +53,14 @@ export default function AcceptInvite() {
 
   function validate() {
     const e = {};
-    if (!name.trim())      e.name     = 'Full name is required.';
-    if (password.length < 8) e.password = 'Password must be at least 8 characters.';
-    if (password !== confirm) e.confirm  = 'Passwords do not match.';
+    if (mode === 'new') {
+      if (!name.trim())        e.name     = 'Full name is required.';
+      if (password.length < 8) e.password = 'Password must be at least 8 characters.';
+      if (password !== confirm) e.confirm  = 'Passwords do not match.';
+    } else if (mode === 'shell') {
+      if (password.length < 8) e.password = 'Password must be at least 8 characters.';
+      if (password !== confirm) e.confirm  = 'Passwords do not match.';
+    }
     return e;
   }
 
@@ -62,7 +71,21 @@ export default function AcceptInvite() {
     setErrors({});
     setStep('submitting');
     try {
-      await acceptInvite({ token, name: name.trim(), password });
+      const payload = { token };
+      if (mode === 'new')   { payload.name = name.trim(); payload.password = password; }
+      if (mode === 'shell') { payload.password = password; }
+      await acceptInvite(payload);
+      setStep('success');
+    } catch (err) {
+      setServerError(err.message ?? 'Something went wrong. Please try again.');
+      setStep('error');
+    }
+  }
+
+  async function handleAcceptExisting() {
+    setStep('submitting');
+    try {
+      await acceptInvite({ token });
       setStep('success');
     } catch (err) {
       setServerError(err.message ?? 'Something went wrong. Please try again.');
@@ -112,16 +135,16 @@ export default function AcceptInvite() {
           </div>
         )}
 
-        {/* Form */}
-        {(step === 'form' || step === 'submitting') && (
+        {/* Form — new recipient: full registration */}
+        {(step === 'form' || step === 'submitting') && mode === 'new' && (
           <>
             <h2 style={{ margin: `0 0 ${SPACING.xs}px`, fontSize: 17, fontWeight: 700, color: TEXT }}>
               Accept your invitation
             </h2>
             <p style={{ margin: `0 0 ${SPACING.lg}px`, fontSize: 13, color: MUTED }}>
-              {preview?.email
-                ? <>Invited as <strong>{preview.email}</strong>. Create a password to activate your account.</>
-                : 'Create a password to activate your recipient account.'}
+              {preview?.recipient_email
+                ? <>Invited as <strong>{preview.recipient_email}</strong>. Create your account to get started.</>
+                : 'Create an account to accept this invitation.'}
             </p>
             <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: SPACING.md }}>
               <Input
@@ -139,6 +162,7 @@ export default function AcceptInvite() {
                   id="password"
                   label="Password"
                   type="password"
+                  showToggle
                   placeholder="At least 8 characters"
                   value={password}
                   onChange={e => { setPassword(e.target.value); setErrors(v => ({ ...v, password: undefined })); }}
@@ -149,16 +173,10 @@ export default function AcceptInvite() {
                   <div style={{ marginTop: 6 }}>
                     <div style={{ display: 'flex', gap: 4 }}>
                       {[1,2,3,4].map(i => (
-                        <div key={i} style={{
-                          flex: 1, height: 3, borderRadius: 999,
-                          backgroundColor: i <= strength ? STRENGTH_COLORS[strength] : '#e5e7eb',
-                          transition: 'background-color 0.2s',
-                        }} />
+                        <div key={i} style={{ flex: 1, height: 3, borderRadius: 999, backgroundColor: i <= strength ? STRENGTH_COLORS[strength] : '#e5e7eb', transition: 'background-color 0.2s' }} />
                       ))}
                     </div>
-                    <p style={{ margin: '3px 0 0', fontSize: 11, color: STRENGTH_COLORS[strength], fontWeight: 500 }}>
-                      {STRENGTH_LABELS[strength]}
-                    </p>
+                    <p style={{ margin: '3px 0 0', fontSize: 11, color: STRENGTH_COLORS[strength], fontWeight: 500 }}>{STRENGTH_LABELS[strength]}</p>
                   </div>
                 )}
               </div>
@@ -166,25 +184,111 @@ export default function AcceptInvite() {
                 id="confirm"
                 label="Confirm Password"
                 type="password"
+                showToggle
                 placeholder="Repeat your password"
                 value={confirm}
                 onChange={e => { setConfirm(e.target.value); setErrors(v => ({ ...v, confirm: undefined })); }}
                 error={errors.confirm}
                 disabled={step === 'submitting'}
               />
-              <Button
-                type="submit"
-                loading={step === 'submitting'}
-                style={{ width: '100%', justifyContent: 'center', marginTop: SPACING.xs }}
-              >
+              <Button type="submit" loading={step === 'submitting'} style={{ width: '100%', justifyContent: 'center', marginTop: SPACING.xs }}>
                 Activate Account
               </Button>
             </form>
           </>
         )}
 
+        {/* Form — shell recipient: set password only */}
+        {(step === 'form' || step === 'submitting') && mode === 'shell' && (
+          <>
+            <h2 style={{ margin: `0 0 ${SPACING.xs}px`, fontSize: 17, fontWeight: 700, color: TEXT }}>
+              Set your password
+            </h2>
+            <p style={{ margin: `0 0 ${SPACING.lg}px`, fontSize: 13, color: MUTED }}>
+              {preview?.recipient_email
+                ? <>An account was already created for <strong>{preview.recipient_email}</strong>. Set a password to activate it.</>
+                : 'An account exists for your email. Set a password to activate it.'}
+            </p>
+            <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: SPACING.md }}>
+              <div>
+                <Input
+                  id="password"
+                  label="Password"
+                  type="password"
+                  showToggle
+                  placeholder="At least 8 characters"
+                  value={password}
+                  onChange={e => { setPassword(e.target.value); setErrors(v => ({ ...v, password: undefined })); }}
+                  error={errors.password}
+                  disabled={step === 'submitting'}
+                  autoFocus
+                />
+                {password.length > 0 && (
+                  <div style={{ marginTop: 6 }}>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {[1,2,3,4].map(i => (
+                        <div key={i} style={{ flex: 1, height: 3, borderRadius: 999, backgroundColor: i <= strength ? STRENGTH_COLORS[strength] : '#e5e7eb', transition: 'background-color 0.2s' }} />
+                      ))}
+                    </div>
+                    <p style={{ margin: '3px 0 0', fontSize: 11, color: STRENGTH_COLORS[strength], fontWeight: 500 }}>{STRENGTH_LABELS[strength]}</p>
+                  </div>
+                )}
+              </div>
+              <Input
+                id="confirm"
+                label="Confirm Password"
+                type="password"
+                showToggle
+                placeholder="Repeat your password"
+                value={confirm}
+                onChange={e => { setConfirm(e.target.value); setErrors(v => ({ ...v, confirm: undefined })); }}
+                error={errors.confirm}
+                disabled={step === 'submitting'}
+              />
+              <Button type="submit" loading={step === 'submitting'} style={{ width: '100%', justifyContent: 'center', marginTop: SPACING.xs }}>
+                Activate Account
+              </Button>
+            </form>
+          </>
+        )}
+
+        {/* Form — registered recipient: accept & link only */}
+        {(step === 'form' || step === 'submitting') && mode === 'registered' && (
+          <>
+            <h2 style={{ margin: `0 0 ${SPACING.xs}px`, fontSize: 17, fontWeight: 700, color: TEXT }}>
+              You already have an account
+            </h2>
+            <p style={{ margin: `0 0 ${SPACING.lg}px`, fontSize: 13, color: MUTED }}>
+              {preview?.org_name
+                ? <><strong>{preview.org_name}</strong> has invited you. Click below to link this organisation to your existing account.</>
+                : 'An organisation has invited you. Click below to link them to your existing account.'}
+            </p>
+            <p style={{ margin: `0 0 ${SPACING.lg}px`, fontSize: 13, color: MUTED }}>
+              Signing in as <strong>{preview?.recipient_email}</strong>.
+            </p>
+            <Button loading={step === 'submitting'} style={{ width: '100%', justifyContent: 'center' }} onClick={handleAcceptExisting}>
+              Accept &amp; Link Organisation
+            </Button>
+          </>
+        )}
+
         {/* Success */}
-        {step === 'success' && (
+        {step === 'success' && mode === 'registered' && (
+          <div style={{ textAlign: 'center', padding: `${SPACING.sm}px 0` }}>
+            <CheckCircle2 size={52} color={PRIMARY} style={{ marginBottom: SPACING.md }} />
+            <h2 style={{ margin: `0 0 ${SPACING.xs}px`, fontSize: 18, fontWeight: 700, color: TEXT }}>
+              Organisation linked!
+            </h2>
+            <p style={{ margin: `0 0 ${SPACING.lg}px`, fontSize: 13, color: MUTED }}>
+              You already have an account — log in to see your new certificate.
+            </p>
+            <Button style={{ width: '100%', justifyContent: 'center' }} onClick={() => navigate('/?openRecipientLogin=true')}>
+              Sign In
+            </Button>
+          </div>
+        )}
+
+        {step === 'success' && mode !== 'registered' && (
           <div style={{ textAlign: 'center', padding: `${SPACING.sm}px 0` }}>
             <CheckCircle2 size={52} color={PRIMARY} style={{ marginBottom: SPACING.md }} />
             <h2 style={{ margin: `0 0 ${SPACING.xs}px`, fontSize: 18, fontWeight: 700, color: TEXT }}>

@@ -3,12 +3,12 @@ import { fetchDashboardStats, fetchDashboardTable, fetchDashboardActivity, fetch
 
 const initialState = {
   stats: {
-    total_certificates: 0,
-    active_certificates: 0,
-    revoked_certificates: 0,
-    total_recipients: 0,
-    pendingInvites: 0,
-    monthlyVerifications: 0,
+    total_certificates: null,
+    active_certificates: null,
+    revoked_certificates: null,
+    total_recipients: null,
+    pendingInvites: null,
+    monthlyVerifications: null,
   },
   tableData: [],
   total: 0,

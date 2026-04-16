@@ -34,11 +34,12 @@ function NavItem({ to, Icon, label, active, badge, unreadCount }) {
         fontSize: 13,
         fontWeight: active ? 600 : 400,
         color: active ? PRIMARY : MUTED,
-        backgroundColor: active ? `${PRIMARY}12` : 'transparent',
+        backgroundColor: active ? `${PRIMARY}14` : 'transparent',
+        borderLeft: active ? `3px solid ${PRIMARY}` : '3px solid transparent',
         textDecoration: 'none',
-        transition: 'background 0.12s, color 0.12s',
+        transition: 'background 0.12s, color 0.12s, border-color 0.12s',
       }}
-      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.backgroundColor = '#f3f4f6'; e.currentTarget.style.color = TEXT; } }}
+      onMouseEnter={(e) => { if (!active) { e.currentTarget.style.backgroundColor = '#f0f5f0'; e.currentTarget.style.color = TEXT; } }}
       onMouseLeave={(e) => { if (!active) { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = MUTED; } }}
     >
       <Icon size={15} strokeWidth={active ? 2.2 : 1.8} style={{ flexShrink: 0 }} />
@@ -68,7 +69,7 @@ export function RecipientSidebar() {
     <aside style={{
       width: 220,
       minHeight: '100vh',
-      backgroundColor: '#fff',
+      background: 'linear-gradient(180deg, #fafcfa 0%, #f7fbf7 100%)',
       borderRight: `1px solid ${BORDER}`,
       display: 'flex',
       flexDirection: 'column',

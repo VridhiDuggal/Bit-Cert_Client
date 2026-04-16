@@ -515,6 +515,7 @@ export default function IssueCertificate() {
             id="revoke_password"
             label="Confirm your password"
             type="password"
+            showToggle
             placeholder="Enter your account password"
             value={revokePassword}
             onChange={(e) => setRevokePassword(e.target.value)}

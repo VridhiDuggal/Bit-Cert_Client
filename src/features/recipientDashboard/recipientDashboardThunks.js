@@ -7,8 +7,8 @@ export const fetchRecipientStats = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const token = selectRecipientToken(getState());
-      const data = await getRecipientDashboardStats(token);
-      return data;
+      const { success: _s, ...stats } = await getRecipientDashboardStats(token);
+      return stats;
     } catch (err) {
       return rejectWithValue(err.message);
     }

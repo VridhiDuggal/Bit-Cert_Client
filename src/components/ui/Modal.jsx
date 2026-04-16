@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { TEXT } from '../../styles/tokens';
 
-const MAX_WIDTH = { sm: 360, md: 480, lg: 640 };
+const MAX_WIDTH = { sm: 360, md: 480, lg: 640, xl: 860 };
 
 export function Modal({ isOpen, onClose, title, children, size = 'md', isDirty = false }) {
   const [warnClose, setWarnClose] = useState(false);

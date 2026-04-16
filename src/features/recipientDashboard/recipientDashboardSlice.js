@@ -3,10 +3,10 @@ import { fetchRecipientStats, fetchRecentCertificates, fetchRecentNotifications 
 
 const initialState = {
   stats: {
-    total_certificates: 0,
-    active_certificates: 0,
-    orgs_count: 0,
-    total_verifications: 0,
+    total_certificates: null,
+    active_certificates: null,
+    orgs_count: null,
+    total_verifications: null,
   },
   statsLoading: false,
   statsError: null,

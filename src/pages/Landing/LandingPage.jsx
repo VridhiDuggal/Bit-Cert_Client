@@ -29,7 +29,7 @@ export default function LandingPage() {
   const switchToOnboard = () => { setIsLoginOpen(false); setIsOnboardOpen(true); };
 
   return (
-    <div style={{ fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif', color: '#1a202c', backgroundColor: '#fff', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif', color: '#1a202c', background: 'linear-gradient(180deg, #eef4ee 0%, #f7fbf7 12%, #ffffff 35%)', minHeight: '100vh', overflowX: 'hidden' }}>
       <LandingNavbar onLoginOpen={openLogin} onOnboardOpen={openOnboard} onRecipientLoginOpen={() => setIsRecipientLoginOpen(true)} />
       <main>
         <HeroSection onLoginOpen={openLogin} onOnboardOpen={openOnboard} />

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { QRCodeSVG } from 'qrcode.react';
@@ -15,9 +15,8 @@ import {
   selectDetailLoading,
   selectDetailError,
 } from '../../features/orgIssue/orgIssueSelectors';
+import { downloadOrgCertificate } from '../../api/org.api';
 import { BORDER, TEXT, MUTED, BG_SUBTLE, PRIMARY } from '../../styles/tokens';
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? '';
 
 function StatusBadge({ is_revoked }) {
   return (
@@ -43,13 +42,32 @@ export default function CertificateDetail() {
   const cert = useSelector(selectSelectedCert);
   const loading = useSelector(selectDetailLoading);
   const error = useSelector(selectDetailError);
+  const [downloading, setDownloading] = useState(false);
 
   useEffect(() => {
     dispatch(fetchCertificateDetail({ token, id }));
     return () => { dispatch(clearSelectedCert()); };
   }, [dispatch, token, id]);
 
-  const verificationUrl = cert ? `${API_BASE}/api/verify/${cert.cert_hash}` : '';
+  const verificationUrl = cert ? `${window.location.origin}/verify/${cert.cert_hash}` : '';
+
+  const handleDownload = async () => {
+    if (!cert || downloading) return;
+    setDownloading(true);
+    try {
+      const blob = await downloadOrgCertificate(token, cert.certificate_id);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `certificate-${cert.cert_hash?.slice(0, 8)}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      // silently fail
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   const fields = cert
     ? [
@@ -133,9 +151,9 @@ export default function CertificateDetail() {
             </div>
 
             {cert.file_path && !cert.is_revoked && (
-              <a
-                href={`${API_BASE}/${cert.file_path}`}
-                download
+              <button
+                onClick={handleDownload}
+                disabled={downloading}
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
@@ -146,12 +164,14 @@ export default function CertificateDetail() {
                   color: '#fff',
                   fontWeight: 600,
                   fontSize: 14,
-                  textDecoration: 'none',
+                  border: 'none',
+                  cursor: downloading ? 'not-allowed' : 'pointer',
+                  opacity: downloading ? 0.7 : 1,
                   alignSelf: 'flex-start',
                 }}
               >
-                Download PDF
-              </a>
+                {downloading ? 'Downloading…' : 'Download PDF'}
+              </button>
             )}
 
             {cert.verification_history && (

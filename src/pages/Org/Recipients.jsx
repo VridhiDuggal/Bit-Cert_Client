@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Eye, Pencil, Ban, CheckCircle, UserPlus, Upload, Users, X } from 'lucide-react';
+import { Eye, Pencil, Ban, CheckCircle, UserPlus, Upload, Users, UserCheck, Clock, X } from 'lucide-react';
 import { OrgLayout } from '../../components/org/OrgLayout';
 import { PageTransition } from '../../components/shared/PageTransition';
 import { PageHeader } from '../../components/ui/PageHeader';
@@ -361,11 +361,6 @@ function DetailPanel({ recipient, token, onClose, onSuspendRequest }) {
               <SectionLabel>Details</SectionLabel>
               <MetaRow label="Invite Status"><InviteStatusBadge status={recipient.invite_status} /></MetaRow>
               <MetaRow label="Member Since">{new Date(recipient.created_at).toLocaleDateString()}</MetaRow>
-              <MetaRow label="Last Certificate">
-                {recipient.latest_cert_date
-                  ? new Date(recipient.latest_cert_date).toLocaleDateString()
-                  : <span style={{ color: MUTED }}>—</span>}
-              </MetaRow>
             </div>
 
             <div>
@@ -629,19 +624,22 @@ export default function Recipients() {
 
       {stats && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: SPACING.md, marginBottom: SPACING.lg }}>
-          <StatCard title="Total Recipients" value={stats.total_recipients ?? 0} />
-          <StatCard title="Active" value={(stats.total_recipients ?? 0) - (stats.suspended_recipients ?? 0)} />
-          <StatCard title="Pending Invites" value={stats.pendingInvites ?? 0} />
+          <StatCard title="Total Recipients" value={stats.total_recipients ?? 0} icon={Users} color={PRIMARY} />
+          <StatCard title="Active" value={(stats.total_recipients ?? 0) - (stats.suspended_recipients ?? 0)} icon={UserCheck} color={SUCCESS} />
+          <StatCard title="Pending Invites" value={stats.pendingInvites ?? 0} icon={Clock} color={WARNING} />
         </div>
       )}
 
-      <div style={{ display: 'flex', gap: SPACING.md, alignItems: 'center', marginBottom: SPACING.md, flexWrap: 'wrap' }}>
-        <SearchBar
-          value={search}
-          onChange={v => dispatch(setSearch(v))}
-          placeholder="Search by name or email…"
-          style={{ flex: 1, minWidth: 220 }}
-        />
+      <div style={{ display: 'flex', gap: SPACING.md, alignItems: 'flex-end', marginBottom: SPACING.md, flexWrap: 'nowrap' }}>
+        <div style={{ flex: 1, minWidth: 220, display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <label style={{ fontSize: 11, fontWeight: 700, color: MUTED, textTransform: 'uppercase', letterSpacing: 0.6 }}>Search</label>
+          <SearchBar
+            value={search}
+            onChange={v => dispatch(setSearch(v))}
+            placeholder="Search by name or email…"
+            style={{ flex: 1, minWidth: 220 }}
+          />
+        </div>
         <FilterBar
           filters={FILTER_DEFS}
           values={{ status: filters.status }}
