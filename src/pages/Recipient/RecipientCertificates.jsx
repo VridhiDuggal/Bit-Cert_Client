@@ -7,6 +7,7 @@ import { Modal } from '../../components/ui/Modal';
 import { EmptyState } from '../../components/ui/EmptyState';
 import { SearchBar } from '../../components/ui/SearchBar';
 import { Button } from '../../components/ui/Button';
+import { QRDownloadButton } from '../../components/ui/QRDownloadButton';
 import {
   fetchRecipientCertificates,
   fetchCertificateDetail,
@@ -87,6 +88,7 @@ export default function RecipientCertificates() {
 
   const [localSearch, setLocalSearch] = useState(search);
   const debounceRef = useRef(null);
+  const [qrCert, setQrCert] = useState(null);
 
   useEffect(() => {
     dispatch(fetchRecipientOrgs());
@@ -123,6 +125,10 @@ export default function RecipientCertificates() {
 
   function handleOrgTab(value) {
     dispatch(setOrgFilter(value));
+  }
+
+  function handleQR(cert) {
+    setQrCert(cert);
   }
 
   const totalPages = Math.ceil(total / limit);
@@ -187,7 +193,7 @@ export default function RecipientCertificates() {
       <div style={{ marginBottom: T.SPACING.lg }}>
         <SearchBar
           value={localSearch}
-          onChange={e => setLocalSearch(e.target.value)}
+          onChange={val => setLocalSearch(val)}
           placeholder="Search certificates..."
           onClear={() => { setLocalSearch(''); dispatch(setSearch('')); dispatch(fetchRecipientCertificates()); }}
         />
@@ -212,6 +218,7 @@ export default function RecipientCertificates() {
               onView={handleView}
               onVerify={handleVerify}
               onShare={handleShare}
+              onQR={handleQR}
             />
           ))}
         </div>
@@ -248,6 +255,21 @@ export default function RecipientCertificates() {
           certificateId={selectedCert?.certificate_id}
           asModal
         />
+      </Modal>
+
+      <Modal isOpen={!!qrCert} size="sm" title="Download QR Code" onClose={() => setQrCert(null)}>
+        {qrCert && (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, padding: '8px 0 16px' }}>
+            <p style={{ margin: 0, fontSize: 13, color: '#6b7280', textAlign: 'center' }}>
+              Scan this QR code to verify <strong>{qrCert.course_name ?? qrCert.course}</strong>
+            </p>
+            <QRDownloadButton
+              value={`${window.location.origin}/verify/${qrCert.cert_hash}`}
+              size={200}
+              fileName={`certificate-qr-${qrCert.cert_hash?.slice(0, 8)}`}
+            />
+          </div>
+        )}
       </Modal>
     </RecipientLayout>
   );

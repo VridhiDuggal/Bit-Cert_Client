@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Award, Eye, ExternalLink, Share2, Download } from 'lucide-react';
+import { Award, Eye, ExternalLink, Share2, Download, QrCode } from 'lucide-react';
 import { Badge } from './Badge';
 import { Tooltip } from './Tooltip';
 import * as T from '../../styles/tokens';
 
-export function CertificateCard({ certificate, onView, onShare, onDownload, onVerify }) {
+export function CertificateCard({ certificate, onView, onShare, onDownload, onVerify, onQR }) {
   const [hovered, setHovered] = useState(false);
   const isRevoked = certificate.is_revoked;
   const isExpired = certificate.is_expired;
@@ -69,6 +69,9 @@ export function CertificateCard({ certificate, onView, onShare, onDownload, onVe
         <IconButton icon={<Eye size={15} />} tooltip="View Details" onClick={() => onView(certificate)} />
         <IconButton icon={<ExternalLink size={15} />} tooltip="Verify Certificate" onClick={() => onVerify(certificate)} />
         <IconButton icon={<Share2 size={15} />} tooltip="Copy Verification Link" onClick={() => onShare(certificate)} />
+        {onQR && (
+          <IconButton icon={<QrCode size={15} />} tooltip="Download QR Code" onClick={() => onQR(certificate)} />
+        )}
         {onDownload && (
           <IconButton icon={<Download size={15} />} tooltip="Download Certificate" onClick={() => onDownload(certificate)} />
         )}

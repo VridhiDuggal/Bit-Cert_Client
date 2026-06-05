@@ -1,5 +1,5 @@
-import { Award, ShieldX, Sparkles } from 'lucide-react';
-import { DANGER, INFO, SUCCESS, BORDER, WHITE, SURFACE, TEXT, MUTED, TEXT_MUTED, RADIUS, SPACING, DURATION } from '../../styles/tokens';
+import { Award, ShieldX, Sparkles, ExternalLink } from 'lucide-react';
+import { DANGER, INFO, SUCCESS, PRIMARY, BORDER, WHITE, SURFACE, TEXT, MUTED, TEXT_MUTED, RADIUS, SPACING, DURATION } from '../../styles/tokens';
 
 function relativeTime(dateStr) {
   if (!dateStr) return '';
@@ -19,7 +19,7 @@ const TYPE_CONFIG = {
   WELCOME:             { color: INFO,    Icon: Sparkles },
 };
 
-export function NotificationItem({ notification, onRead }) {
+export function NotificationItem({ notification, onRead, onVerify }) {
   const { color, Icon } = TYPE_CONFIG[notification.type] ?? { color: INFO, Icon: Sparkles };
   const isUnread = !notification.is_read;
 
@@ -62,9 +62,23 @@ export function NotificationItem({ notification, onRead }) {
             {notification.body}
           </p>
         )}
-        <p style={{ margin: '4px 0 0', fontSize: 12, color: TEXT_MUTED }}>
-          {relativeTime(notification.created_at)}
-        </p>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
+          <p style={{ margin: 0, fontSize: 12, color: TEXT_MUTED }}>
+            {relativeTime(notification.created_at)}
+          </p>
+          {onVerify && (
+            <button
+              onClick={e => { e.stopPropagation(); onVerify(notification.cert_hash); }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 4,
+                fontSize: 12, fontWeight: 600, color: PRIMARY,
+                background: 'none', border: 'none', cursor: 'pointer', padding: '2px 0',
+              }}
+            >
+              <ExternalLink size={11} /> Verify
+            </button>
+          )}
+        </div>
       </div>
 
       {isUnread && (

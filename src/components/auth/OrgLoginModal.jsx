@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Modal } from '../ui/Modal';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
+import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { loginOrg } from '../../api/org.api';
 import { loginSuccess } from '../../store/auth/authSlice';
 import { useToast } from '../../hooks/useToast';
@@ -19,6 +20,7 @@ export function OrgLoginModal({ isOpen, onClose, onSwitchToOnboard }) {
   const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
 
   const isDirty = fields.email !== '' || fields.password !== '';
 
@@ -70,6 +72,7 @@ export function OrgLoginModal({ isOpen, onClose, onSwitchToOnboard }) {
   };
 
   return (
+    <>
     <Modal isOpen={isOpen} onClose={onClose} title="Organisation Login" isDirty={isDirty}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Input
@@ -104,19 +107,34 @@ export function OrgLoginModal({ isOpen, onClose, onSwitchToOnboard }) {
         <Button type="submit" loading={loading} style={{ width: '100%', justifyContent: 'center', marginTop: 4 }}>
           {loading ? 'Logging in…' : 'Log In'}
         </Button>
-        {onSwitchToOnboard && (
-          <p style={{ textAlign: 'center', fontSize: 13, color: MUTED, margin: 0 }}>
-            Don’t have an account?{' '}
-            <button
-              type="button"
-              onClick={onSwitchToOnboard}
-              style={{ color: PRIMARY, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, padding: 0 }}
-            >
-              Register your organisation
-            </button>
-          </p>
-        )}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {onSwitchToOnboard ? (
+            <p style={{ fontSize: 13, color: MUTED, margin: 0 }}>
+              Don't have an account?{' '}
+              <button
+                type="button"
+                onClick={onSwitchToOnboard}
+                style={{ color: PRIMARY, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 600, padding: 0 }}
+              >
+                Register
+              </button>
+            </p>
+          ) : <span />}
+          <button
+            type="button"
+            onClick={() => setShowForgot(true)}
+            style={{ color: PRIMARY, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, padding: 0 }}
+          >
+            Forgot password?
+          </button>
+        </div>
       </form>
     </Modal>
+    <ForgotPasswordModal
+      isOpen={showForgot}
+      onClose={() => setShowForgot(false)}
+      onBackToLogin={() => setShowForgot(false)}
+    />
+    </>
   );
 }

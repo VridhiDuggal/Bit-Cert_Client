@@ -4,10 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Modal } from '../ui/Modal';
 import { Input } from '../ui/Input';
 import { Button } from '../ui/Button';
+import { ForgotPasswordModal } from './ForgotPasswordModal';
 import { loginRecipient } from '../../api/recipient.api';
 import { recipientLoginSuccess } from '../../store/recipientAuth/recipientAuthSlice';
 import { useToast } from '../../hooks/useToast';
-import { MUTED } from '../../styles/tokens';
+import { MUTED, PRIMARY } from '../../styles/tokens';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -19,6 +20,7 @@ export function RecipientLoginModal({ isOpen, onClose }) {
   const [fieldErrors, setFieldErrors] = useState({});
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
 
   const isDirty = fields.email !== '' || fields.password !== '';
 
@@ -70,6 +72,7 @@ export function RecipientLoginModal({ isOpen, onClose }) {
   };
 
   return (
+    <>
     <Modal isOpen={isOpen} onClose={onClose} title="Recipient Login" isDirty={isDirty}>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
         <Input
@@ -104,10 +107,23 @@ export function RecipientLoginModal({ isOpen, onClose }) {
         <Button type="submit" loading={loading} style={{ width: '100%', justifyContent: 'center', marginTop: 4 }}>
           Sign In
         </Button>
+        <button
+          type="button"
+          onClick={() => setShowForgot(true)}
+          style={{ color: PRIMARY, background: 'none', border: 'none', cursor: 'pointer', fontSize: 13, fontWeight: 500, padding: 0, alignSelf: 'flex-end' }}
+        >
+          Forgot password?
+        </button>
         <p style={{ margin: 0, fontSize: 12, color: MUTED, textAlign: 'center' }}>
           Don't have an account? Check your invite email.
         </p>
       </form>
     </Modal>
+    <ForgotPasswordModal
+      isOpen={showForgot}
+      onClose={() => setShowForgot(false)}
+      onBackToLogin={() => setShowForgot(false)}
+    />
+    </>
   );
 }

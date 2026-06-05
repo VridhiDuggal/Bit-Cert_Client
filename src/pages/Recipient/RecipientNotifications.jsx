@@ -175,9 +175,10 @@ export default function RecipientNotifications() {
             >
               <NotificationItem
                 notification={notif}
-                onRead={notif.cert_hash
-                  ? (id) => { handleRead(id); window.open(`/verify/${notif.cert_hash}`, '_blank', 'noopener'); }
-                  : handleRead
+                onRead={handleRead}
+                onVerify={notif.cert_hash
+                  ? (hash) => window.open(`/verify/${hash}`, '_blank', 'noopener,noreferrer')
+                  : undefined
                 }
               />
             </div>

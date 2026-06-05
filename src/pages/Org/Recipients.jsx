@@ -18,6 +18,7 @@ import { Loader } from '../../components/ui/Loader';
 import { StatCard } from '../../components/ui/StatCard';
 import { selectToken } from '../../store/auth/authSelectors';
 import { selectDashboardStats } from '../../features/orgDashboard/orgDashboardSelectors';
+import { fetchDashboardStats } from '../../features/orgDashboard/orgDashboardThunks';
 import {
   selectRecipients, selectRecipientsTotal, selectRecipientsPage, selectRecipientsLimit,
   selectRecipientsSearch, selectRecipientsFilters, selectRecipientsLoading,
@@ -521,6 +522,10 @@ export default function Recipients() {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [bulkOpen, setBulkOpen] = useState(false);
   const [panelOpen, setPanelOpen] = useState(false);
+
+  useEffect(() => {
+    if (token) dispatch(fetchDashboardStats(token));
+  }, [dispatch, token]);
 
   useEffect(() => {
     if (searchParams.get('action') === 'invite') {

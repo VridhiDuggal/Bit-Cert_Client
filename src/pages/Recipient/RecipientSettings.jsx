@@ -28,7 +28,7 @@ const TABS = [
 function passwordStrength(pw) {
   if (!pw) return null;
   let score = 0;
-  if (pw.length >= 10) score++;
+  if (pw.length >= 8) score++;
   if (/[A-Z]/.test(pw)) score++;
   if (/[0-9]/.test(pw)) score++;
   if (/[^A-Za-z0-9]/.test(pw)) score++;
@@ -183,7 +183,7 @@ function SecurityTab() {
     const e = {};
     if (!form.currentPassword) e.currentPassword = 'Required';
     if (!form.newPassword) e.newPassword = 'Required';
-    else if (form.newPassword.length < 10) e.newPassword = 'Minimum 10 characters';
+    else if (form.newPassword.length < 8) e.newPassword = 'Minimum 8 characters';
     if (!form.confirmPassword) e.confirmPassword = 'Required';
     else if (form.newPassword !== form.confirmPassword) e.confirmPassword = 'Passwords do not match';
     return e;
